@@ -1,34 +1,38 @@
 "use client";
 
-import MainButton from "@/components/MainButton/MainButton";
-import { cart, favorite, logo, bottomArrow } from "@/assets";
+import { cart, favorite } from "@/assets";
 import Image from "next/image";
-import { useRef, useState } from "react";
-import CategoriesMenu from "./CategoriesMenu";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 import Language from "@/components/Language/Language";
 import { useAuth } from "@/context/AuthContext";
-import { Search, Mic } from "lucide-react"; // Add this import at the top
 import { useCart } from "@/hooks/useCart";
 import SearchSection from "./SearchSection";
 import Currency from "./Currency";
+import { useAppSelector } from "@/rtk/hooks";
 
 
 const MiddleBar = ({ locale }: { locale: string }) => {
   const { token } = useAuth();
   const { items } = useCart();
-
+  const { logo, loading } = useAppSelector((s) => s.logo)
   return (
     <div className="flex items-center justify-between py-4 px-4 md:px-0 gap-6 bg-dark">
       {/* Logo */}
       <Link href={"/"} className="flex items-center gap-2  h-12">
-        <Image
-          src={logo}
-          alt="logo"
-          className="object-contain"
-          loading="lazy"
-        />
+        {
+          loading ? (
+            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+          ) : (
+            <Image
+              src={logo?.logoDarkMode || "/default-logo.png"}
+              alt="Mongiz"
+              className="object-contain"
+              loading="lazy"
+              width={220}
+              height={220}
+            />
+          )
+        }
       </Link>
 
       {/* Search */}

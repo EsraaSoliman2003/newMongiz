@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { AuthLogo, Google } from "@/assets";
+import { Google } from "@/assets";
 import Image from "next/image";
 import { MapPin, ImageIcon, FileText, CreditCard, Hash, Upload, X, EyeOff, Eye } from "lucide-react";
 import Link from "next/link";
@@ -13,11 +13,11 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { Controller } from "react-hook-form";
 import { RegisterSchemaType } from "@/validation/registerSchema";
-import GoogleSignUpButton from "./GoogleSignUpButton";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
   const searchParams = useSearchParams();
-
+  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -64,7 +64,18 @@ export default function Page() {
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         <Link href="/" className="flex justify-center mb-6">
-          <Image src={AuthLogo} alt="Logo" width={100} height={100} />
+          {
+            logoLoading ? (
+              <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+            ) : (
+              <Image
+                src={logo?.logoDarkMode || "/default-logo.png"}
+                alt="Mongiz"
+                width={220}
+                height={220}
+              />
+            )
+          }
         </Link>
 
         <h1 className="text-xl font-semibold text-center mb-2 text-white">{t("RegisterTitle")}</h1>

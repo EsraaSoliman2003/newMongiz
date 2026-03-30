@@ -1,14 +1,14 @@
 "use client";
 
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { setTrue } from "@/rtk/slices/openMenu";
 import { Menu } from "lucide-react";
-import logo from "@/assets/logo.png";
 import Link from "next/link";
 import SafeImage from "@/components/safeImage/SafeImage";
 
 export default function SidebarToggle() {
   const dispatch = useAppDispatch();
+  const { logo, loading } = useAppSelector((s) => s.logo)
 
   return (
     <div
@@ -23,13 +23,19 @@ export default function SidebarToggle() {
     >
       {/* Title */}
       <Link href={"/"}>
-        <SafeImage
-          src={logo}
-          alt="logo"
-          width={100}
-          height={40}
-          className="object-contain h-8 w-auto"
-        />
+        {
+          loading ? (
+            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+          ) : (
+            <SafeImage
+              src={logo?.logoDarkMode || "/default-logo.png"}
+              alt="Mongiz"
+              width={100}
+              height={40}
+              className="object-contain h-8 w-auto"
+            />
+          )
+        }
       </Link>
 
       {/* Button */}

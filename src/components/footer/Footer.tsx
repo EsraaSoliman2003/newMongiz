@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
-import logo from "@/assets/logo.png";
 import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/rtk/hooks";
 
 const Footer = () => {
     const t = useTranslations();
+    const { logo, loading } = useAppSelector((s) => s.logo)
+
     return (
         <footer className={`bg-[#0F1220] text-[#B7B9C6] text-center ${t("dir") === "rtl" ? "md:text-right" : "md:text-left"}`}>
             <div className="container py-16 px-4">
@@ -14,7 +16,18 @@ const Footer = () => {
 
                     {/* Logo */}
                     <div className="flex md:col-span-2 lg:col-span-1 items-center mt-5 justify-center md:justify-start">
-                        <Image src={logo} alt="Mongiz" width={270} />
+                        {
+                            loading ? (
+                                <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+                            ) : (
+                                <Image
+                                    src={logo?.logoDarkMode || "/default-logo.png"}
+                                    alt="Mongiz"
+                                    width={270}
+                                    height={100}
+                                />
+                            )
+                        }
                     </div>
 
                     {/* Contact */}

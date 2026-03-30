@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { AuthLogo, Google } from "@/assets";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import MainButton from "@/components/MainButton/MainButton";
 import { useLoginForm } from "@/hooks/useLoginForm";
 import GoogleSignInButton from "./GoogleSignInButton";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
   const {
@@ -20,13 +20,25 @@ export default function Page() {
   } = useLoginForm();
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl rounded-2xl px-8 py-10 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         {/* Logo */}
         <Link href="/" className="flex justify-center mb-6">
-          <Image src={AuthLogo} alt="Logo" width={100} height={100} />
+          {
+            logoLoading ? (
+              <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+            ) : (
+              <Image
+                src={logo?.logoDarkMode || "/default-logo.png"}
+                alt="Mongiz"
+                width={220}
+                height={220}
+              />
+            )
+          }
         </Link>
 
         {/* Title */}

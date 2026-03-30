@@ -159,7 +159,7 @@ export default function SidebarMenu({
             {item.name === t("customers") &&
               pending &&
               pending.length > 0 && (
-                <span className="ml-auto bg-red-500 text-white text-xs font-bold min-w-[20px] h-5 px-1 flex items-center justify-center rounded-full">
+                <span className="ml-auto bg-red-500 text-white text-xs font-bold min-w-5 h-5 px-1 flex items-center justify-center rounded-full">
                   {pending.length}
                 </span>
               )}

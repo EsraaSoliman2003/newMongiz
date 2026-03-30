@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { HiX } from "react-icons/hi";
-import { useAppDispatch } from "@/rtk/hooks";
+import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { setFalse } from "@/rtk/slices/openMenu";
-import logo from "@/assets/logo.png";
 import Image from "next/image";
 
 export default function SidebarHeader() {
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { logo, loading } = useAppSelector((s) => s.logo)
 
   return (
     <div className="flex flex-col items-center justify-center border-b border-gray-700 pb-4 mb-4 relative">
@@ -29,14 +29,20 @@ export default function SidebarHeader() {
         onClick={() => dispatch(setFalse())}
         className="flex items-center justify-center"
       >
-        <Image
-          src={logo}
-          alt="Mongiz"
-          width={200}
-          height={100}
-          className="w-52 md:w-45 h-auto object-contain"
-          priority
-        />
+        {
+          loading ? (
+            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+          ) : (
+            <Image
+              src={logo?.logoDarkMode || "/default-logo.png"}
+              alt="Mongiz"
+              width={200}
+              height={100}
+              className="w-52 md:w-45 h-auto object-contain"
+              priority
+            />
+          )
+        }
 
       </Link>
     </div>

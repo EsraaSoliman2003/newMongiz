@@ -1,22 +1,21 @@
 "use client";
 
-import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { toast } from "sonner";
-import { AuthLogo, Google } from "@/assets";
 
 import { getRegisterSchema, RegisterSchemaType } from "@/validation/registerSchema";
 import GoogleSignUpButton from "../register/GoogleSignUpButton";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useAppSelector } from "@/rtk/hooks";
 
 export default function Page() {
     const t = useTranslations();
+    const { logo, loading } = useAppSelector((s) => s.logo)
 
     const { control, watch, formState: { errors } } = useForm<RegisterSchemaType>({
         resolver: zodResolver(getRegisterSchema(t, false)),
@@ -31,7 +30,18 @@ export default function Page() {
         <div className="min-h-screen flex items-center justify-center px-4 py-20">
             <div className="w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl px-8 py-10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
                 <Link href="/" className="flex justify-center mb-6">
-                    <Image src={AuthLogo} alt="Logo" width={100} height={100} />
+                    {
+                        loading ? (
+                            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
+                        ) : (
+                            <Image
+                                src={logo?.logoDarkMode || "/default-logo.png"}
+                                alt="Mongiz"
+                                width={220}
+                                height={220}
+                            />
+                        )
+                    }
                 </Link>
 
                 <h1 className="text-xl font-semibold text-center mb-2 text-white">{t("RegisterTitle")}</h1>
@@ -52,7 +62,7 @@ export default function Page() {
                             />
                         )}
                     />
-                    {errors.phone && <p className="text-red-500 text-xs mt-1">{t(errors.phone.message || "") }</p>}
+                    {errors.phone && <p className="text-red-500 text-xs mt-1">{t(errors.phone.message || "")}</p>}
                 </div>
 
                 <GoogleSignUpButton

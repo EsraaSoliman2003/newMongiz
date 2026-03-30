@@ -6,6 +6,7 @@ import { useAppDispatch } from "./hooks";
 import { useEffect } from "react";
 import { fetchCurrency } from "./slices/currency/currency";
 import { setCurrency } from "./slices/ui/Currency";
+import { fetchLogo } from "./slices/logo/logoSlice";
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ function CurrencyLoader({ currency }: { currency: string }) {
   useEffect(() => {
     dispatch(fetchCurrency());
     dispatch(setCurrency(currency));
+    dispatch(fetchLogo());
   }, [dispatch, currency]);
 
   return null;
