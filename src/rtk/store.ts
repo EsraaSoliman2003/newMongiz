@@ -38,6 +38,8 @@ import home2Reducer from "./slices/home/homeSlice2";
 import currencyReducer from "./slices/currency/currency";
 import currencyValueReducer from "./slices/ui/Currency";
 import inventoryReducer from "./slices/inventory/inventory";
+import logoReducer from "./slices/logo/logoSlice";
+import howItWorkReducer from "./slices/howItWork/howItWork";
 
 export const store = configureStore({
   reducer: {
@@ -79,6 +81,8 @@ export const store = configureStore({
     currency: currencyReducer,
     currencyValue: currencyValueReducer,
     inventory: inventoryReducer,
+    logo: logoReducer,
+    howItWork: howItWorkReducer,
   },
 });
 

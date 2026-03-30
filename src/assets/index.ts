@@ -30,6 +30,7 @@ import AuthLogo from "./AuthLogo.svg";
 import Google from "./Google.svg";
 import Layer_1 from "./Layer_1.svg";
 import pen from "./pen.svg";
+import about_how_it from "./aerial-view-business-team.png";
 
 export {
   twitter,
@@ -63,5 +64,6 @@ export {
   AuthLogo,
   Google,
   Layer_1,
-  pen
+  pen,
+  about_how_it,
 };

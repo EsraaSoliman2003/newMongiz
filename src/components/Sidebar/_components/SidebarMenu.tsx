@@ -19,6 +19,7 @@ import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { fetchPendingSellers } from "@/rtk/slices/seller/sellerSlice";
 import { useEffect } from "react";
+import { Bell, BookOpen, Image, Share2 } from "lucide-react";
 
 function cn(...classes: (string | undefined | false | null)[]) {
   return classes.filter(Boolean).join(" ");
@@ -51,6 +52,11 @@ export default function SidebarMenu({
       name: t("dashboard"),
       icon: <HiHome className="text-xl" />,
       path: "/admin",
+    },
+    {
+      name: t("Logo"),
+      icon: <Image className="text-xl" />,
+      path: "/admin/logo",
     },
     {
       name: t("Slider"),
@@ -103,6 +109,21 @@ export default function SidebarMenu({
       path: "/admin/contact-info",
     },
     {
+      name: t("How It Work"),
+      icon: <BookOpen className="text-xl" />,
+      path: "/admin/how-it-work",
+    },
+    {
+      name: t("Notification Mobile"),
+      icon: <Bell className="text-xl" />,
+      path: "/admin/notification-mobile",
+    },
+    {
+      name: t("Social"),
+      icon: <Share2 className="text-xl" />,
+      path: "/admin/social",
+    },
+    {
       name: t("Support"),
       icon: <HiOutlineSupport className="text-xl" />,
       path: "/admin/support",
@@ -113,7 +134,7 @@ export default function SidebarMenu({
       path: "/admin/settings",
     },
   ];
-
+  
 
   return (
     <nav className="flex-1 px-2 py-2 space-y-1 overflow-y-auto">

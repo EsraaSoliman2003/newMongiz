@@ -133,3 +133,13 @@ export interface Faqs {
   question: string;
   answer: string;
 }
+
+export type AboutHowItWorkData = {
+  images: string[];
+  titleTextEN: string;
+  titleTextAR: string;
+  titleHighlightEN: string;
+  titleHighlightAR: string;
+  paragraphEN: string;
+  paragraphAR: string;
+};

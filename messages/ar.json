@@ -763,5 +763,9 @@
   "size": "الحجم",
   "volume": "السعة",
   "Currency": "العملة",
-  "productDetails": "تفاصيل المنتج"
+  "productDetails": "تفاصيل المنتج",
+  "Logo": "الشعار",
+  "Social": "التواصل الاجتماعي",
+  "Notification Mobile": "إشعارات الجوال",
+  "How It Work": "كيف يعمل"
 }
