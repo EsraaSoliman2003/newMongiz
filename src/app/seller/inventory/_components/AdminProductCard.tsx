@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useAppSelector } from "@/rtk/hooks";
 import { useState } from "react";
+import { ExternalLink } from "lucide-react";
 
 interface Props {
   id: number;
@@ -55,13 +56,13 @@ const ProductCard: React.FC<Props> = ({
         {/* Actions */}
         <div className="flex items-center gap-3">
           {/* Edit */}
-          {/* <Link
-            href={`/seller/inventory/edit?id=${id}`}
-            className="relative w-5 h-5 block"
+          <Link
+            href={`/seller/inventory/product-details?id=${id}`}
+            className="relative w-5 h-5 block text-blue-500 hover:text-blue-600 transition-all"
             aria-label={t("edit")}
           >
-            <Image src={pen} alt={t("edit")} fill sizes="20px" />
-          </Link> */}
+            <ExternalLink size={20} />
+          </Link>
 
           {/* Transfer */}
           <Link

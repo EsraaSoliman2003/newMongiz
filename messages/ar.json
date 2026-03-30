@@ -762,5 +762,6 @@
   "shape": "الشكل",
   "size": "الحجم",
   "volume": "السعة",
-  "Currency": "العملة"
+  "Currency": "العملة",
+  "productDetails": "تفاصيل المنتج"
 }
