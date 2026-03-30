@@ -210,35 +210,42 @@ const AddProductForm: React.FC = () => {
         ).unwrap();
       } else {
         if (mainFile) {
-          await dispatch(
-            createProduct({
-              name: productDraft.name,
-              description: productDraft.description,
-              mainPrice: productDraft.mainPrice,
-              categoryId: productDraft.categoryId,
-              brandId: productDraft.brandId,
-              subCategoryId: productDraft.subCategoryId,
-              discount: productDraft.discount,
-              quantity: productDraft.quantity,
-              limitProducts: productDraft.limitProducts,
-              limitStock: productDraft.limitStock,
-              mainImage: mainFile,
-              images: imageFiles,
-              keywords: productDraft.keywords,
-              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0),
-              variants: productDraft.variants.map((v) => ({
-                attributes: v.attributes,
-                quantity: v.quantity,
-              })),
-            })
-          );
+          try {
+            await dispatch(
+              createProduct({
+                name: productDraft.name,
+                description: productDraft.description,
+                mainPrice: productDraft.mainPrice,
+                categoryId: productDraft.categoryId,
+                brandId: productDraft.brandId,
+                subCategoryId: productDraft.subCategoryId,
+                discount: productDraft.discount,
+                quantity: productDraft.quantity,
+                limitProducts: productDraft.limitProducts,
+                limitStock: productDraft.limitStock,
+                mainImage: mainFile,
+                images: imageFiles,
+                keywords: productDraft.keywords,
+                additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0),
+                variants: productDraft.variants.map((v) => ({
+                  attributes: v.attributes,
+                  quantity: v.quantity,
+                })),
+              })
+            );
+            dispatch(resetDraft());
+            router.push("/seller/products");
+            toast(t("productAddedsuccessfully"))
+
+          } catch (error) {
+            console.log(error)
+
+          }
         } else {
           toast("main image is required")
         }
       }
-      dispatch(resetDraft());
-      router.push("/seller/products");
-      toast(t("productAddedsuccessfully"))
+
     } catch (error) {
       console.log(error);
     }

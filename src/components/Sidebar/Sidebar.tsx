@@ -36,7 +36,7 @@ export default function Sidebar() {
 
       <aside
         className={cn(
-          "w-full lg:min-w-[280px] lg:max-w-[280px] text-[#E5E7EB] bg-[#14161A] h-screen fixed top-0 lg:sticky px-4 pt-5 transition-all duration-500 z-[100] flex flex-col",
+          "sidebar-scroll w-full lg:min-w-[280px] lg:max-w-[280px] text-[#E5E7EB] bg-[#14161A] h-screen fixed top-0 lg:sticky px-4 pt-5 transition-all duration-500 z-[100] flex flex-col",
           open ? "start-0" : "start-[-100%] lg:start-0"
         )}
       >

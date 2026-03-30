@@ -64,7 +64,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         className={`p-3 space-y-1 text-center ${t("dir") === "rtl" ? "md:text-right" : "md:text-left"
           }`}
       >
-        <h3 className="text-sm font-medium text-gray-800 line-clamp-2 transition-colors duration-200 hover:text-blue-600">
+        <h3 className="text-sm font-medium text-gray-800 line-clamp-1 transition-colors duration-200 hover:text-blue-600">
           {product.name}
         </h3>
 

@@ -16,9 +16,6 @@ type Props = {}
 export default function page({ }: Props) {
     const t = useTranslations();
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(fetchProductsByCategory({ categoryId: 1 }));
-    }, [dispatch]);
 
     const { data, loading } = useAppSelector(
         (s) => s.products
