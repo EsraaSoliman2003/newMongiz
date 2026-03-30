@@ -108,7 +108,7 @@ export default function Page() {
 
             <form
                 onSubmit={handleSubmit}
-                className="bg-white rounded-xl border p-4 lg:p-6 space-y-4"
+                className="bg-white rounded-xl border border-gray-200 p-4 lg:p-6 space-y-4"
             >
                 <h2 className="font-semibold text-lg">{t("notification_form_title")}</h2>
 
@@ -119,7 +119,7 @@ export default function Page() {
                         name="typeSelection"
                         value={form.typeSelection}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2 outline-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                     >
                         <option value="broadcast">{t("broadcast_to_all")}</option>
                         <option value="user">{t("send_to_user")}</option>
@@ -135,7 +135,7 @@ export default function Page() {
                             name="userId"
                             value={form.userId}
                             onChange={handleChange}
-                            className="w-full border rounded-lg px-3 py-2 outline-none"
+                            className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                             required
                         />
                     </div>
@@ -148,7 +148,7 @@ export default function Page() {
                         name="title"
                         value={form.title}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2 outline-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                         required
                     />
                 </div>
@@ -161,7 +161,7 @@ export default function Page() {
                         value={form.body}
                         onChange={handleChange}
                         rows={4}
-                        className="w-full border rounded-lg px-3 py-2 outline-none resize-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none resize-none"
                         required
                     />
                 </div>
@@ -173,7 +173,7 @@ export default function Page() {
                         name="notificationType"
                         value={form.notificationType}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2 outline-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                     >
                         {NOTIFICATION_TYPES.map((type) => (
                             <option key={type.value} value={type.value}>
@@ -190,7 +190,7 @@ export default function Page() {
                         name="priority"
                         value={form.priority}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2 outline-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                     >
                         {PRIORITY_OPTIONS.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -208,7 +208,7 @@ export default function Page() {
                         name="sender"
                         value={form.sender}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-3 py-2 outline-none"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none"
                         placeholder={t("optional")}
                     />
                 </div>
@@ -218,7 +218,7 @@ export default function Page() {
                     <button
                         type="submit"
                         disabled={createLoading || sendLoading}
-                        className="px-5 py-2 rounded-lg bg-primary text-white font-medium disabled:opacity-60"
+                        className="px-5 py-2 rounded-lg bg-dark text-white font-medium disabled:opacity-60"
                     >
                         {(createLoading || sendLoading)
                             ? t("notification_saving")

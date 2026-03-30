@@ -66,7 +66,7 @@ export default function Page() {
           {list.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border rounded-xl p-4 bg-white shadow-sm"
+              className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border border-gray-200 rounded-xl p-4 bg-white"
             >
               {/* Name (Read Only) */}
               <div className="w-full md:w-1/4 font-medium capitalize">
@@ -79,7 +79,7 @@ export default function Page() {
                   <input
                     value={urlValue}
                     onChange={(e) => setUrlValue(e.target.value)}
-                    className="w-full border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full border border-gray-200 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-primary"
                   />
                 ) : (
                   <p className="truncate text-sm text-gray-700">{item.url}</p>
@@ -99,7 +99,7 @@ export default function Page() {
                     </button>
                     <button
                       onClick={cancelEdit}
-                      className="px-4 py-2 text-sm rounded-lg border"
+                      className="px-4 py-2 text-sm rounded-lg border border-gray-200"
                     >
                       {t("Cancel")}
                     </button>
@@ -107,7 +107,7 @@ export default function Page() {
                 ) : (
                   <button
                     onClick={() => startEdit(item)}
-                    className="px-4 py-2 text-sm rounded-lg border"
+                    className="px-4 py-2 text-sm rounded-lg border border-gray-200"
                   >
                     {t("Edit")}
                   </button>

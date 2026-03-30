@@ -147,7 +147,7 @@ export default function HowItWork() {
   };
 
   return (
-    <div className="rounded-2xl border b-c bg-white p-5 md:p-6">
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
       <div className="flex items-center justify-between gap-3 mb-4">
         <div>
           <h2 className="font-semibold text-base title-color">{t("How it Work")}</h2>
@@ -167,7 +167,7 @@ export default function HowItWork() {
             <button
               type="button"
               onClick={cancel}
-              className="rounded-lg px-4 py-2 border b-c bg-white font-semibold text-sm"
+                className="rounded-lg px-4 py-2 border border-gray-200 bg-white font-semibold text-sm"
             >
               {t("Cancel")}
             </button>

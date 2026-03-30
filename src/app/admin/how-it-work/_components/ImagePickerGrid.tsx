@@ -26,7 +26,7 @@ export default function ImagePickerGrid({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {arr.map((i) => (
-          <div key={i} className="rounded-xl border b-c p-3">
+          <div key={i} className="rounded-xl border border-gray-200 p-3">
             <div className="relative w-full h-32 rounded-lg overflow-hidden bg-[#F4F6F8]">
               <Image
                 src={images[i] || fallbackSrc}

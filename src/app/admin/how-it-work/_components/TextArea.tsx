@@ -23,7 +23,7 @@ export default function TextArea({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="px-3 py-3 rounded-lg border b-c outline-none focus:ring-2 focus:ring-[#00000010] bg-white resize-none"
+        className="px-3 py-3 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-[#00000010] bg-white resize-none"
       />
     </div>
   );

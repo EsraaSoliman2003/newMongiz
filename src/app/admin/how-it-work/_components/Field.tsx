@@ -20,7 +20,7 @@ export default function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-11 px-3 rounded-lg border b-c outline-none focus:ring-2 focus:ring-[#00000010] bg-white"
+        className="h-11 px-3 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-[#00000010] bg-white"
       />
     </div>
   );

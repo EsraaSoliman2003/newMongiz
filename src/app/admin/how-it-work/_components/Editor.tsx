@@ -22,7 +22,7 @@ export default function HowItWorksEditor({
   const t = useTranslations();
 
   return (
-    <div className="rounded-2xl border b-c bg-white p-5 md:p-6 space-y-6">
+    <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 space-y-6">
       <h2 className="font-semibold text-base title-color">{t("Edit Section")}</h2>
 
       <ImagePickerGrid
