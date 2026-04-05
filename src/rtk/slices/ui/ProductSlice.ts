@@ -67,12 +67,12 @@ const initialState: ProductDraft = {
 };
 
 const typeToKeyMap: Record<number, string> = {
-  1: "color",
-  2: "volume",
-  3: "size",
-  4: "shape",
-  5: "weight",
-  6: "memory",
+  1: "الألوان",
+  2: "السعة",
+  3: "الحجم",
+  4: "الشكل",
+  5: "الوزن",
+  6: "الذاكرة",
 };
 
 const productSlice = createSlice({
