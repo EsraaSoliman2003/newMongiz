@@ -745,5 +745,11 @@
   "SAR": "SAR",
   "AED": "AED",
   "JOD": "JD",
-  "CNY": "¥"
+  "CNY": "¥",
+  "الألوان": "Colors",
+  "السعة": "Capacity",
+  "الحجم": "Size",
+  "الشكل": "Shape",
+  "الوزن": "Weight",
+  "الذاكرة": "Memory"
 }
