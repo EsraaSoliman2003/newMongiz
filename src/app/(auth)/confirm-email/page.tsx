@@ -6,8 +6,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import MainButton from "@/components/MainButton/MainButton";
 import { useAppSelector } from "@/rtk/hooks";
+import { useTranslations } from "next-intl";
 
 export default function ConfirmEmailPage() {
+  const t = useTranslations();
+  const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
@@ -36,7 +40,7 @@ export default function ConfirmEmailPage() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/verify-email", {
+      const res = await fetch(`${base}/api/Account/ConfirmEmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,12 +80,31 @@ export default function ConfirmEmailPage() {
 
         {/* Title */}
         <h1 className="text-xl font-semibold text-center mb-2">
-          Confirm Your Email
+          {t("Confirm Your Email")}
         </h1>
         <p className="text-sm text-center text-white/70 mb-7 leading-relaxed">
           {email
-            ? `A verification email was sent to ${email}. Click the button below to verify your email.`
-            : "No email provided"}
+            ? (
+              <>
+                <div>{ email }</div>
+                <div>
+                  {t("Click the button below to verify your email")}.
+                </div>
+
+              </>
+            )
+            : t("No email provided")}
+        </p>
+
+        <p className="text-sm text-center text-white/70 mb-7 leading-relaxed">
+          {token
+            ? (
+              <>
+                <div>token</div>
+                <div>{token}</div>
+              </>
+            )
+            : t("No email provided")}
         </p>
 
         {/* Verify Button */}
@@ -93,14 +116,14 @@ export default function ConfirmEmailPage() {
         />
 
         {status && (
-          <p className="text-center mt-4 text-sm text-white/80">{status}</p>
+          <p className="text-center mt-4 text-sm text-white/80">{t(status)}</p>
         )}
 
         {/* Link to Login */}
         <p className="text-center text-sm text-white/70 mt-6">
-          Already verified?{" "}
+          {t("Already verified?")}{" "}
           <Link href="/login" className="text-orange-400 hover:underline">
-            Go to Login
+            {t("Go to Login")}
           </Link>
         </p>
       </div>
