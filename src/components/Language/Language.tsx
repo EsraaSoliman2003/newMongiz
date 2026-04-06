@@ -1,20 +1,20 @@
 "use client";
 
 import { setCookie } from "cookies-next";
-import { Globe } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Globe, Check } from "lucide-react";
+import { useState } from "react";
 
 interface Props {
   locale: string;
 }
 
 const LanguageDropdown = ({ locale }: Props) => {
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { code: "en", label: "US" },
-    { code: "ar", label: "AR" },
-    { code: "zh", label: "CN" },
+    { code: "en", label: "English", flag: "🇺🇸" },
+    { code: "ar", label: "العربية", flag: "🇸🇦" },
+    { code: "zh", label: "中文", flag: "🇨🇳" },
   ];
 
   const changeLanguage = (code: string) => {
@@ -22,28 +22,49 @@ const LanguageDropdown = ({ locale }: Props) => {
     window.location.reload();
   };
 
+  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
+
   return (
-    <div className="relative inline-block group">
-      {/* Button showing current language */}
-      <button className="flex items-center gap-2 px-3 py-1 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-700 transition-all duration-200 cursor-pointer text-sm font-medium">
-        <span>{languages.find(l => l.code === locale)?.label || "Lang"}</span>
-        <Globe size={16} />
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-gray-100 transition-colors duration-200 text-gray-600"
+        aria-label="Change language"
+      >
+        <Globe size={20} />
+        <span className="text-sm font-medium hidden sm:inline">{currentLanguage.label}</span>
       </button>
 
-      {/* Dropdown menu */}
-      <div className="absolute right-0 top-full mt-2 w-28 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-        <div className="flex flex-col text-sm text-gray-700">
-          {languages.map(lang => (
-            <button
-              key={lang.code}
-              onClick={() => changeLanguage(lang.code)}
-              className="px-4 py-2 hover:bg-gray-100"
-            >
-              {lang.label}
-            </button>
-          ))}
-        </div>
-      </div>
+      {isOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="absolute right-0 top-full mt-2 w-40 bg-white shadow-lg rounded-lg overflow-hidden z-50 border border-gray-100 animate-fadeIn">
+            {languages.map(lang => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  changeLanguage(lang.code);
+                  setIsOpen(false);
+                }}
+                className="w-full px-4 py-2.5 hover:bg-gray-50 transition-colors duration-150 flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{lang.flag}</span>
+                  <span className="text-sm text-gray-700 group-hover:text-green-600">
+                    {lang.label}
+                  </span>
+                </div>
+                {locale === lang.code && (
+                  <Check size={16} className="text-green-600" />
+                )}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

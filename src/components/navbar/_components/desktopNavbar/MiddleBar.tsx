@@ -9,70 +9,67 @@ import { useCart } from "@/hooks/useCart";
 import SearchSection from "./SearchSection";
 import Currency from "./Currency";
 import { useAppSelector } from "@/rtk/hooks";
-
+import CategoriesDrawer from "./CategoriesMegaMenu";
+import { Heart, ShoppingCart } from "lucide-react";
 
 const MiddleBar = ({ locale }: { locale: string }) => {
   const { token } = useAuth();
   const { items } = useCart();
   const { logo, loading } = useAppSelector((s) => s.logo)
+
   return (
-    <div className="flex items-center justify-between py-4 px-4 md:px-0 gap-6 bg-dark">
+    <div className="flex items-center justify-between gap-4 py-3">
       {/* Logo */}
-      <Link href={"/"} className="flex items-center gap-2  h-12">
-        {
-          loading ? (
-            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : (
+      <Link href={"/"} className="flex items-center shrink-0">
+        {loading ? (
+          <div className="w-44 h-12 bg-gray-200 animate-pulse rounded"></div>
+        ) : (
+          <div className="relative w-44 h-12">
             <Image
               src={logo?.logoDarkMode || "/default-logo.png"}
               alt="Mongiz"
+              fill
+              sizes="(max-width: 768px) 120px, 176px"
+              priority
               className="object-contain"
-              loading="lazy"
-              width={220}
-              height={220}
             />
-          )
-        }
+          </div>
+        )}
       </Link>
 
-      {/* Search */}
-      <SearchSection />
+      {/* Categories Drawer */}
+      <div className="shrink-0">
+        <CategoriesDrawer />
+      </div>
 
-      {/* Left Icons */}
-      <div className="flex items-center gap-3 text-white">
-        <Currency />
+      {/* Search Section - Takes remaining space */}
+      <div className="flex-1 max-w-2xl">
+        <SearchSection />
+      </div>
+
+      {/* Right Icons */}
+      <div className="flex items-center gap-5 shrink-0">
         <Language locale={locale} />
 
         {/* Cart */}
-        <Link href={"/cart"}
-          className="relative w-5 h-5 cursor-pointer hover:opacity-80 transition"
+        <Link
+          href={"/cart"}
+          className="relative cursor-pointer hover:opacity-80 transition text-gray-600 hover:text-green-600"
         >
-          <Image
-            src={cart}
-            alt="cart"
-            width={20}
-            height={20}
-            className="object-contain"
-          />
-
+          <ShoppingCart size={22} />
           {items.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-main text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
+            <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold shadow-sm">
               {items.length}
             </span>
           )}
-
         </Link>
 
         {/* Favorite */}
-        <Link href={token ? "/favourite" : "/login"}
-          className="relative w-5 h-5 cursor-pointer hover:opacity-80 transition">
-          <Image
-            src={favorite}
-            alt="wishlist"
-            width={20}
-            height={20}
-            className="object-contain"
-          />
+        <Link
+          href={token ? "/favourite" : "/login"}
+          className="relative cursor-pointer hover:opacity-80 transition text-gray-600 hover:text-red-500"
+        >
+          <Heart size={22} />
         </Link>
       </div>
     </div>

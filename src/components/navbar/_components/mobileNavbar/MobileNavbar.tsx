@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { logo } from "@/assets";
 import MobileSidebar from "./MobileSidebar";
 import {
     Menu,
@@ -20,6 +19,8 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import Currency from "./Currency";
+import { useAppSelector } from "@/rtk/hooks";
+import Image from "next/image";
 
 const MobileNavbar = ({ locale }: { locale: string }) => {
     const { items } = useCart();
@@ -43,6 +44,8 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
         return () => document.removeEventListener("mousedown", handler);
     }, []);
 
+    const { logo, loading } = useAppSelector((s) => s.logo)
+
     return (
         <>
             {/* Mobile Navigation Bar */}
@@ -58,13 +61,20 @@ const MobileNavbar = ({ locale }: { locale: string }) => {
 
                     {/* Logo */}
                     <Link href={"/"}>
-                        <SafeImage
-                            src={logo}
-                            alt="logo"
-                            width={100}
-                            height={40}
-                            className="object-contain h-8 w-auto"
-                        />
+
+
+                        {loading ? (
+                            <div className="w-40 h-10 bg-gray-200 animate-pulse rounded"></div>
+                        ) : (
+                            <div className="relative w-20 h-8">
+                                <Image
+                                    src={logo?.logoDarkMode || "/default-logo.png"}
+                                    alt="logo"
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                        )}
                     </Link>
 
                     <div className="flex items-center relative" ref={menuRef}>

@@ -23,9 +23,9 @@ export default function CenterSection() {
   const { data: sliderData } = useAppSelector((s) => s.slider);
 
   return (
-    <div className="lg:col-span-7 lg:grid lg:grid-rows-3 gap-4 h-full">
+    <div className="lg:col-span-12 lg:grid lg:grid-rows-3 gap-4 h-full">
       {/* Center Slider */}
-      <div className="row-span-1 lg:row-span-2 relative rounded-lg overflow-hidden h-[350px] lg:h-full group mb-5 lg:mb-0">
+      <div className="row-span-1 lg:row-span-3 relative rounded-lg overflow-hidden h-[350px] lg:h-full group mb-5 lg:mb-0">
         <div className="relative rounded-lg overflow-hidden h-full hover:bg-black/10!">
           <div
             className={`${t("dir") === "rtl" ? "Sponsers" : "Sponsers SponsersLeft"
@@ -112,35 +112,6 @@ export default function CenterSection() {
             </h2>
             <MainButton text={t("ShopNow")} className="transition-transform" />
           </Link>
-        </div>
-      </div>
-
-      {/* Small Cards - Mobile: Swiper, Desktop: Grid */}
-      <div className="row-span-1 h-25 md:h-35 lg:h-full">
-        <div className="grid grid-cols-3 gap-4 h-full">
-          {[4, 5, 6].map((index) => (
-            <Link
-              href={bannerData[0]?.links?.[index] || "/"}
-              key={index}
-              className="group relative rounded-lg overflow-hidden flex items-end p-4 transition-all duration-200 cursor-pointer"
-            >
-              <Image
-                src={bannerData[0]?.images?.[index] || "/placeholder.png"}
-                alt={bannerData[0]?.titles?.[index] || `banner-${index}`}
-                fill
-                sizes="(max-width: 768px) 33vw, 20vw" // Added sizes prop
-                className="object-cover"
-              />
-
-              <div className="relative z-20 transition-colors duration-200">
-                <h4 className="max-w-30 font-bold">
-                  {bannerData[0]?.titles?.[index]}
-                </h4>
-              </div>
-
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 z-10 pointer-events-none" />
-            </Link>
-          ))}
         </div>
       </div>
     </div>
