@@ -11,6 +11,7 @@ import Currency from "./Currency";
 import { useAppSelector } from "@/rtk/hooks";
 import CategoriesDrawer from "./CategoriesMegaMenu";
 import { Heart, ShoppingCart } from "lucide-react";
+import UserMenu from "./UserMenu";
 
 const MiddleBar = ({ locale }: { locale: string }) => {
   const { token } = useAuth();
@@ -64,13 +65,7 @@ const MiddleBar = ({ locale }: { locale: string }) => {
           )}
         </Link>
 
-        {/* Favorite */}
-        <Link
-          href={token ? "/favourite" : "/login"}
-          className="relative cursor-pointer hover:opacity-80 transition text-gray-600 hover:text-red-500"
-        >
-          <Heart size={22} />
-        </Link>
+        <UserMenu />
       </div>
     </div>
   );
