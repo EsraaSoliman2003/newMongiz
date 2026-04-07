@@ -20,7 +20,6 @@ export default function ConfirmEmailPage() {
   const [token, setToken] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const { logo, loading: logoLoading } = useAppSelector((s) => s.logo);
 
@@ -64,11 +63,10 @@ export default function ConfirmEmailPage() {
       );
 
       if (res.ok) {
-        setSuccess(true);
         toast(t("Email verified successfully! 🎉"));
 
         setTimeout(() => {
-          router.push("/login");
+          router.push("/");
         }, 3000);
       } else {
         const data = await res.json();
@@ -101,9 +99,7 @@ export default function ConfirmEmailPage() {
 
         {/* Title */}
         <h1 className="text-xl font-semibold text-center mb-2">
-          {success
-            ? t("Email Verified Title")
-            : t("Confirm Your Email")}
+          {t("Confirm Your Email")}
         </h1>
 
         <div className="text-sm text-center text-white/70 mb-7 leading-relaxed">
@@ -118,31 +114,21 @@ export default function ConfirmEmailPage() {
         </div>
 
         {/* Button */}
-        {success ? (
-          <MainButton
-            onClick={() => router.push("/login")}
-            text={t("Back to Login")}
-            className="w-full mb-6"
-          />
-        ) : (
-          <MainButton
-            onClick={() => handleVerify(email, token)}
-            text={t("Verify Email")}
-            loading={loading}
-            className="w-full mb-6"
-            disabled={loading}
-          />
-        )}
+        <MainButton
+          onClick={() => handleVerify(email, token)}
+          text={t("Verify Email")}
+          loading={loading}
+          className="w-full mb-6"
+          disabled={loading}
+        />
 
         {/* Login link */}
-        {!success && (
-          <p className="text-center text-sm text-white/70 mt-6">
-            {t("Already verified?")}{" "}
-            <Link href="/login" className="text-orange-400 hover:underline">
-              {t("Go to Login")}
-            </Link>
-          </p>
-        )}
+        <p className="text-center text-sm text-white/70 mt-6">
+          {t("Already verified?")}{" "}
+          <Link href="/login" className="text-orange-400 hover:underline">
+            {t("Go to Login")}
+          </Link>
+        </p>
       </div>
     </div>
   );
