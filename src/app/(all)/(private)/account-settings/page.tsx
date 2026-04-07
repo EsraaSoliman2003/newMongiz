@@ -1,4 +1,5 @@
 import ChangePassword from "./_components/ChangePassword"
+import ConfirmEmail from "./_components/ConfirmEmail"
 import SelectForm from "./_components/SelectForm"
 
 export default function Page() {
@@ -8,6 +9,8 @@ export default function Page() {
                 <SelectForm />
 
                 <ChangePassword />
+
+                <ConfirmEmail />
             </div>
         </div>
     )

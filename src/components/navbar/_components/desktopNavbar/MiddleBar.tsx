@@ -12,6 +12,7 @@ import { useAppSelector } from "@/rtk/hooks";
 import CategoriesDrawer from "./CategoriesMegaMenu";
 import { Heart, ShoppingCart } from "lucide-react";
 import UserMenu from "./UserMenu";
+import EmailStatusButton from "./EmailStatusButton";
 
 const MiddleBar = ({ locale }: { locale: string }) => {
   const { token } = useAuth();
@@ -66,6 +67,8 @@ const MiddleBar = ({ locale }: { locale: string }) => {
         </Link>
 
         <UserMenu />
+        
+        <EmailStatusButton />
       </div>
     </div>
   );

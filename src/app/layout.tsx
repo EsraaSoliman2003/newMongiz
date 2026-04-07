@@ -22,6 +22,18 @@ export default async function RootLayout({
   const messages = await getMessages();
   const token = (await cookies()).get("token")?.value || null;
   const role = (await cookies()).get("roles")?.value || null;
+  const userCookie = (await cookies()).get("user")?.value;
+
+  let emailConfirmed = false;
+
+  if (userCookie) {
+    try {
+      const user = JSON.parse(userCookie);
+      emailConfirmed = user?.emailConfirmed ?? false;
+    } catch {
+      emailConfirmed = false;
+    }
+  }
   const currency = (await cookies()).get("currency")?.value || "USD";
 
   return (
@@ -31,7 +43,7 @@ export default async function RootLayout({
       >
         <ResponsiveToaster />
         <NextIntlClientProvider messages={messages}>
-          <AuthProvider initialToken={token} initialRole={role}>
+          <AuthProvider initialToken={token} initialRole={role} initialEmailConfirmed={emailConfirmed} >
             <MainProvider
               lang={locale ?? "en"}
               currency={currency}

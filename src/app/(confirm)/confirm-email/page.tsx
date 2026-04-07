@@ -8,11 +8,14 @@ import MainButton from "@/components/MainButton/MainButton";
 import { useAppSelector } from "@/rtk/hooks";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
+import { getCookie, setCookie } from "cookies-next";
 
 export default function ConfirmEmailPage() {
   const t = useTranslations();
   const router = useRouter();
   const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+  const { setEmailConfirmed } = useAuth();
 
   const searchParams = useSearchParams();
 
@@ -64,6 +67,21 @@ export default function ConfirmEmailPage() {
 
       if (res.ok) {
         toast(t("Email verified successfully! 🎉"));
+
+        // ✅ Update AuthContext
+        setEmailConfirmed(true);
+
+        // ✅ Update cookie
+        let userCookie = getCookie("user");
+        if (userCookie) {
+          try {
+            const userObj = JSON.parse(userCookie as string);
+            userObj.emailConfirmed = true;
+            setCookie("user", JSON.stringify(userObj), { path: "/" });
+          } catch (err) {
+            console.error("Failed to update user cookie:", err);
+          }
+        }
 
         setTimeout(() => {
           router.push("/");

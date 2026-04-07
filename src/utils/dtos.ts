@@ -120,6 +120,7 @@ export interface User {
   imageUrl: string | null;
   email: string;
   countryCode: string;
+  emailConfirmed: boolean;
 }
 
 export interface AuthResponse {
