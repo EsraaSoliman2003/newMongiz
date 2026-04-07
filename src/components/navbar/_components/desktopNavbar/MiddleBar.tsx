@@ -27,7 +27,7 @@ const MiddleBar = ({ locale }: { locale: string }) => {
         ) : (
           <div className="relative w-44 h-12">
             <Image
-              src={logo?.logoDarkMode || "/default-logo.png"}
+              src={logo?.logoLightMode || "/default-logo.png"}
               alt="Mongiz"
               fill
               sizes="(max-width: 768px) 120px, 176px"
