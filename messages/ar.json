@@ -825,5 +825,6 @@
   "Email verified successfully! 🎉": "تم تأكيد البريد الإلكتروني بنجاح 🎉",
   "Your email is": "بريدك الإلكترونى هو",
   "Click the button below to verify your email": "اضغط على الزر أدناه لتأكيد بريدك الإلكتروني",
-  "No email provided": "لم يتم توفير بريد إلكتروني"
+  "No email provided": "لم يتم توفير بريد إلكتروني",
+  "Verify Email": "تأكيد الإيميل"
 }
