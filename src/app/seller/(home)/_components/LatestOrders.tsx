@@ -5,10 +5,10 @@ import { FiClock } from "react-icons/fi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
-import { fetchOrdersPaginated } from "@/rtk/slices/orders/ordersSlice";
 import Link from "next/link";
 import OrdersSkeleton from "@/skeleton/OrdersSkeleton";
 import NoData from "@/components/noData/NoData";
+import { fetchSellerOrders } from "@/rtk/slices/orders/ordersSlice";
 
 /* ================= STATUS TYPES ================= */
 
@@ -18,7 +18,7 @@ type OrderItemProps = {
   id: number;
   status: number; // coming as number from backend
   name: string;
-  products: any[];
+  timeCreateOrder: string;
 };
 
 /* ================= STATUS STYLE ================= */
@@ -59,15 +59,33 @@ const statusMap: Record<number, OrderStatus> = {
 
 /* ================= ORDER ITEM ================= */
 
-const OrderItem = ({ id, status, name, products }: OrderItemProps) => {
+const OrderItem = ({
+  id,
+  status,
+  name,
+  timeCreateOrder,
+}: OrderItemProps) => {
   const t = useTranslations();
 
   const mappedStatus = statusMap[status] ?? "new";
   const { bg, text, dot } = statusStyles[mappedStatus];
 
-  return (
-    <Link href={`/seller/orders/order-details?id=${id}`} className="group flex items-center justify-between py-4 px-2 rounded-xl hover:bg-gray-50 transition-colors duration-200">
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
 
+    return date.toLocaleString("ar-EG", {
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  return (
+    <Link
+      href={`/seller/orders/order-details?id=${id}`}
+      className="group flex items-center justify-between py-4 px-2 rounded-xl hover:bg-gray-50 transition-colors duration-200"
+    >
       {/* Left Section */}
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF89041A] border border-[#FF8904] text-[#FF8904] font-bold shadow-sm group-hover:shadow-md transition-shadow">
@@ -77,9 +95,9 @@ const OrderItem = ({ id, status, name, products }: OrderItemProps) => {
         <div>
           <p className="font-semibold">{name}</p>
 
-          <p className="text-xs text-gray-500 flex items-center gap-1">
-            {products?.length ?? 0}{" "}
-            {products?.length === 1 ? t("product") : t("products")}
+          <p className="text-xs text-gray-500 flex items-center gap-2">
+            {/* 🕒 Time */}
+            <span>• {formatDate(timeCreateOrder)}</span>
           </p>
         </div>
       </div>
@@ -105,11 +123,12 @@ const OrderItem = ({ id, status, name, products }: OrderItemProps) => {
 
 export default function LatestOrders() {
   const t = useTranslations();
-  const { items, loading } = useAppSelector((s) => s.order);
+  const { sellerOrders, sellerOrdersLoading } = useAppSelector((s) => s.order);
+  console.log(sellerOrders)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchOrdersPaginated({ page: 1, pageSize: 10 }));
+    dispatch(fetchSellerOrders());
   }, [dispatch]);
 
   return (
@@ -144,17 +163,18 @@ export default function LatestOrders() {
 
       {/* Orders List */}
       <div className="divide-y divide-gray-100">
-        {loading ? (
+        {sellerOrdersLoading ? (
           <OrdersSkeleton />
-        ) : items?.length > 0
+        ) : sellerOrders?.length > 0
           ? (
-            items?.map((item: any) => (
+              sellerOrders?.slice().reverse().slice(0, 10).map((item: any) => (
               <OrderItem
                 key={item.id}
                 id={item.id}
                 status={item.status}
-                name={item.user?.fullName || "User"}
-                products={item.orderProducts || []}
+                name={item.customerName || "User"}
+                  timeCreateOrder={item.timeCreateOrder}
+                  
               />
             ))
           )

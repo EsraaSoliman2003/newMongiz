@@ -34,7 +34,7 @@ export default function MainButton({
   const baseClasses = `
     px-4 py-2 rounded-md text-sm flex items-center justify-center gap-2 transition
     ${isDisabled
-      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+      ? "bg-gray-200 text-gray-400 cursor-not-allowed!"
       : "bg-main text-white hover:opacity-90 cursor-pointer"
     }
     ${className}

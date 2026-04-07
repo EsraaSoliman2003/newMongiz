@@ -55,12 +55,6 @@ export default function SidebarUser({
           >
             English
           </button>
-          <button
-            onClick={() => onChangeLanguage("zh")}
-            className="flex-1 py-2 rounded-xl bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white transition"
-          >
-            中文
-          </button>
         </div>
 
         {/* Logout Button */}

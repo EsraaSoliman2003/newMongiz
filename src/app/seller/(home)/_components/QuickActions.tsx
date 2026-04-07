@@ -16,8 +16,8 @@ type QuickActionCardProps = {
 
 const QuickActionCard = ({ icon, label, color = "text-indigo-600", href }: QuickActionCardProps) => {
     return (
-        <Link href={href} className="group flex flex-col items-center justify-center gap-3 bg-[#F8F8F8] rounded-xl p-5 hover:shadow-md transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-100">
-            <div className={`w-14 h-14 flex items-center justify-center rounded-full bg-indigo-50 group-hover:bg-indigo-100 transition-colors duration-300 ${color}`}>
+        <Link href={href} className="group flex flex-col items-center justify-center gap-3 bg-[#F8F8F8] rounded-xl p-3 md:p-5 hover:shadow-md transition-all duration-300 cursor-pointer border border-transparent hover:border-indigo-100">
+            <div className={`w-10 md:w-14 h-10 md:h-14 flex items-center justify-center rounded-full bg-indigo-50 group-hover:bg-indigo-100 transition-colors duration-300 ${color}`}>
                 {icon}
             </div>
             <p className="text-sm font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">
@@ -38,7 +38,7 @@ export default function QuickActions() {
                     {t("quickActions")}
                 </h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-3 gap-4">
 
                 <QuickActionCard
                     icon={<FiBox size={22} />}
@@ -46,11 +46,11 @@ export default function QuickActions() {
                     href="/seller/products"
                 />
 
-                <QuickActionCard
+                {/* <QuickActionCard
                     icon={<BiCategory size={22} />}
                     label={t("categories")}
                     href="/admin/categories"
-                />
+                /> */}
 
                 <QuickActionCard
                     icon={<FiUsers size={22} />}

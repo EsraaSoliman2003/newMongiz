@@ -36,7 +36,7 @@ export default function ProtectedAuthLayout({ children }: { children: React.Reac
     return (
       <main
         className="min-h-screen flex items-center justify-center bg-center bg-no-repeat bg-cover bg-fixed"
-        style={{ backgroundImage: "url('/login.png')" }}
+        style={{ backgroundImage: "url('/login.webp')" }}
       >
         <div className="w-full max-w-md p-8 space-y-4 bg-white/80 rounded-lg shadow-lg animate-pulse">
           <div className="h-10 bg-gray-300 rounded" />
@@ -52,7 +52,7 @@ export default function ProtectedAuthLayout({ children }: { children: React.Reac
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <main
         className="min-h-screen bg-center bg-no-repeat bg-cover bg-fixed"
-        style={{ backgroundImage: "url('/login.png')" }}
+        style={{ backgroundImage: "url('/login.webp')" }}
       >
         {children}
       </main>

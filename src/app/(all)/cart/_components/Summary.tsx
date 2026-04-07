@@ -40,7 +40,7 @@ export default function Summary({ }: Props) {
 
             <div className='px-6'>
                 <Link href={token ? "/payment" : "/login"}>
-                    <MainButton text={t("ProceedToPayment")} className="w-full" />
+                    <MainButton text={t("ProceedToPayment")} className="w-full" disabled={itemsTotal === 0} />
                 </Link>
             </div>
         </div>
