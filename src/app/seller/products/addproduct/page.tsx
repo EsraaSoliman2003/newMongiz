@@ -177,77 +177,85 @@ const AddProductForm: React.FC = () => {
 
     try {
       if (selectedProduct) {
-        await dispatch(
-          updateProduct({
-            id: selectedProduct.id,
+        try {
+          await dispatch(
+            updateProduct({
+              id: selectedProduct.id,
+              name: productDraft.name,
+              description: productDraft.description,
+              mainPrice: productDraft.mainPrice,
+              categoryId: productDraft.categoryId,
+              brandId: productDraft.brandId,
+              subCategoryId: productDraft.subCategoryId,
+              discount: productDraft.discount,
+              quantity: productDraft.quantity,
+              limitProducts: productDraft.limitProducts,
+              limitStock: productDraft.limitStock,
+              mainImage: mainFile ?? undefined,
+              images: imageFiles,
+              existsImages: productDraft.imageUrls,
+              additionalData: productDraft.additionalData ?? [],
+              variants: productDraft.variants.map((v) => ({
+                attributes: v.attributes,
+                quantity: v.quantity,
+              })),
+              keywords: productDraft.keywords,
+            })
+          ).unwrap();
 
-            name: productDraft.name,
-            description: productDraft.description,
-            mainPrice: productDraft.mainPrice,
-            categoryId: productDraft.categoryId,
-            brandId: productDraft.brandId,
-            subCategoryId: productDraft.subCategoryId,
+          toast(t("productUpdatedSuccessfully"));
+          router.push("/seller/products");
 
-            discount: productDraft.discount,
-            quantity: productDraft.quantity,
-            limitProducts: productDraft.limitProducts,
-            limitStock: productDraft.limitStock,
+        } catch (error) {
+          console.log(error);
+          toast("Failed to update product");
+        }
 
-            mainImage: mainFile ?? undefined,
-            images: imageFiles,
-
-            existsImages: productDraft.imageUrls,
-
-            // New items: do NOT exist in selectedProduct
-            additionalData: productDraft.additionalData ?? [],
-            variants: productDraft.variants.map((v) => ({
-              attributes: v.attributes,
-              quantity: v.quantity,
-            })),
-
-            keywords: productDraft.keywords,
-          })
-        ).unwrap();
       } else {
-        if (mainFile) {
-          try {
-            await dispatch(
-              createProduct({
-                name: productDraft.name,
-                description: productDraft.description,
-                mainPrice: productDraft.mainPrice,
-                categoryId: productDraft.categoryId,
-                brandId: productDraft.brandId,
-                subCategoryId: productDraft.subCategoryId,
-                discount: productDraft.discount,
-                quantity: productDraft.quantity,
-                limitProducts: productDraft.limitProducts,
-                limitStock: productDraft.limitStock,
-                mainImage: mainFile,
-                images: imageFiles,
-                keywords: productDraft.keywords,
-                additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0),
-                variants: productDraft.variants.map((v) => ({
-                  attributes: v.attributes,
-                  quantity: v.quantity,
-                })),
-              })
-            );
-            dispatch(resetDraft());
-            router.push("/seller/products");
-            toast(t("productAddedsuccessfully"))
 
-          } catch (error) {
-            console.log(error)
+        if (!mainFile) {
+          toast("Main image is required");
+          return;
+        }
 
-          }
-        } else {
-          toast("main image is required")
+        try {
+          await dispatch(
+            createProduct({
+              name: productDraft.name,
+              description: productDraft.description,
+              mainPrice: productDraft.mainPrice,
+              categoryId: productDraft.categoryId,
+              brandId: productDraft.brandId,
+              subCategoryId: productDraft.subCategoryId,
+              discount: productDraft.discount,
+              quantity: productDraft.quantity,
+              limitProducts: productDraft.limitProducts,
+              limitStock: productDraft.limitStock,
+              mainImage: mainFile,
+              images: imageFiles,
+              keywords: productDraft.keywords,
+              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0),
+              variants: productDraft.variants.map((v) => ({
+                attributes: v.attributes,
+                quantity: v.quantity,
+              })),
+            })
+          ).unwrap();
+
+          dispatch(resetDraft());
+          router.push("/seller/products");
+          toast(t("productAddedSuccessfully"));
+
+        } catch (error) {
+          console.log(error);
+          toast("Failed to create product");
+
         }
       }
 
     } catch (error) {
       console.log(error);
+      toast("Something went wrong");
     }
   };
 

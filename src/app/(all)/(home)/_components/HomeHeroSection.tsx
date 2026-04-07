@@ -22,7 +22,7 @@ export default function HomeHeroSection() {
                 {/* Center Skeleton */}
                 <div className="lg:col-span-12 lg:grid lg:grid-rows-3 gap-4 h-full">
                     {/* Slider Skeleton */}
-                    <div className="row-span-1 lg:row-span-3 relative rounded-lg overflow-hidden h-[350px] lg:h-full mb-5 lg:mb-0">
+                    <div className="row-span-1 lg:row-span-3 relative rounded-lg overflow-hidden h-87.5 lg:h-full mb-5 lg:mb-0">
                         <div className="w-full h-full bg-gray-200 animate-pulse rounded-lg" />
                     </div>
                 </div>
