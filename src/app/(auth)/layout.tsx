@@ -22,6 +22,8 @@ export default function ProtectedAuthLayout({ children }: { children: React.Reac
 
       if (roles.includes("ADMIN")) {
         router.replace("/admin");
+      } else if (roles.includes("SELLER")) {
+        router.replace("/seller");
       } else {
         router.replace("/");
       }
