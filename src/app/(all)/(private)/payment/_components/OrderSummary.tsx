@@ -11,10 +11,12 @@ import { createOrder } from "@/rtk/slices/orders/ordersSlice";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { fetchCouponByCode } from "@/rtk/slices/coupon/couponSlice";
+import { useAuth } from "@/context/AuthContext";
 
 export default function OrderSummary() {
     const t = useTranslations();
     const router = useRouter();
+    const { emailConfirmed } = useAuth();
     const { items, itemsTotal, totalPrice, coupon, setCouponCode, address, clear, setAddressInfo } = useCart();
     const { data } = useAppSelector((s) => s.currency)
     const { currency } = useAppSelector((s) => s.currencyValue)
@@ -29,6 +31,10 @@ export default function OrderSummary() {
     const finalTotal = itemsTotal + shippingFee;
 
     const handleOrder = () => {
+        if (!emailConfirmed) {
+            toast(t("confirm required"))
+            return
+        }
         if (address?.id && items && items.length !== 0) {
             const formattedProducts = items.map((item) => ({
                 productId: item.id,

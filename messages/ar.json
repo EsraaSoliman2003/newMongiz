@@ -860,5 +860,6 @@
   "Please wait": "يرجى الانتظار",
   "seconds before requesting again": "ثانية قبل الطلب مرة أخرى",
   "Email not confirmed": "بريدك الإلكتروني غير موثوق",
-  "We have sent a confirmation email link to your inbox": "لقد تم إرسال رابط التوثيق الى بريدك الإلكتروني"
+  "We have sent a confirmation email link to your inbox": "لقد تم إرسال رابط التوثيق الى بريدك الإلكتروني",
+  "confirm required": "يجب توثيق البريد الإلكترونى اولا"
 }
