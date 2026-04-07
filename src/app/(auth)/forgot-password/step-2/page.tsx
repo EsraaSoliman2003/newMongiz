@@ -1,10 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Layer_1 } from "@/assets";
 import { Eye, EyeOff } from "lucide-react";
 import MainButton from "@/components/MainButton/MainButton";
 import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Page() {
   const t = useTranslations();
@@ -12,6 +14,75 @@ export default function Page() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+
+  const searchParams = useSearchParams();
+
+  const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
+
+  // ✅ Read incoded params
+  useEffect(() => {
+    const emailParam = searchParams.get("email");
+    const tokenParam = searchParams.get("token");
+
+    setEmail(emailParam || "");
+    setToken(tokenParam || "");
+  }, [searchParams]);
+
+  const handleReset = async () => {
+    // ✅ validation
+    if (!password || !confirmPassword) {
+      toast.error(t("Please fill all fields"));
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error(t("Passwords do not match"));
+      return;
+    }
+
+    if (!email || !token) {
+      toast.error(t("Invalid email or token"));
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch(`${base}/api/Account/reset-password`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept-Language": "ar",
+        },
+        body: JSON.stringify({
+          email,          // ✅ already encoded from URL
+          token,
+          password,
+          confirmPassword,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data?.message || t("Password reset successfully"));
+
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
+      } else {
+        toast.error(data?.title || t("Something went wrong"));
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -101,7 +172,13 @@ export default function Page() {
           </div>
         </div>
 
-        <MainButton text={t("CreateNewPasswordButton")} className="w-full" />
+        <MainButton
+          text={t("CreateNewPasswordButton")}
+          className="w-full"
+          onClick={handleReset}
+          loading={loading}
+        />
+
       </div>
     </div>
   );

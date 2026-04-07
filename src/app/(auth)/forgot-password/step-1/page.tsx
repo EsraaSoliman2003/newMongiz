@@ -4,10 +4,51 @@ import Image from "next/image";
 import { Layer_1 } from "@/assets";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
   const t = useTranslations();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleForgetPass = async () => {
+    // ✅ Validation
+    if (!email) {
+      toast.error(t("Please enter your email"));
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `${base}/api/Account/forget-password?email=${encodeURIComponent(email)}`,
+        {
+          method: "GET",
+          headers: {
+            "Accept-Language": "ar",
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data?.message || t("Email sent successfully"));
+
+        router.push(`/forgot-password/check-email`);
+      } else {
+        toast.error(data?.title || t("Something went wrong"));
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-20">
@@ -56,9 +97,14 @@ export default function Page() {
           />
         </div>
 
-        <Link href={"/forgot-password/step-2"} className="px-4 py-2 rounded-md text-sm flex items-center justify-center transition bg-main text-white hover:opacity-90 cursor-pointer">
-          {t("ResetPasswordButton")}
-        </Link>
+        {/* Button بدل Link */}
+        <button
+          onClick={handleForgetPass}
+          disabled={loading}
+          className="w-full h-11 rounded-lg bg-main text-white hover:opacity-90 transition disabled:opacity-50"
+        >
+          {loading ? t("Loading") : t("ResetPasswordButton")}
+        </button>
       </div>
     </div>
   );

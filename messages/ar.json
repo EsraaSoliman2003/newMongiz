@@ -826,5 +826,14 @@
   "Your email is": "بريدك الإلكترونى هو",
   "Click the button below to verify your email": "اضغط على الزر أدناه لتأكيد بريدك الإلكتروني",
   "No email provided": "لم يتم توفير بريد إلكتروني",
-  "Verify Email": "تأكيد الإيميل"
+  "Verify Email": "تأكيد الإيميل",
+  "Check Your Email": "تحقق من بريدك الإلكتروني",
+  "We have sent a password reset link to your email": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني.",
+  "We have sent a password reset link": "تم إرسال رابط إعادة تعيين كلمة المرور.",
+  "Open your email inbox": "1. افتح صندوق البريد الإلكتروني",
+  "Click on the reset link": "2. اضغط على رابط إعادة التعيين",
+  "Create a new password": "3. قم بإنشاء كلمة مرور جديدة",
+  "Open Email": "فتح البريد الإلكتروني",
+  "Didn't receive the email?": "لم تستلم البريد الإلكتروني؟",
+  "Try again": "حاول مرة أخرى"
 }
