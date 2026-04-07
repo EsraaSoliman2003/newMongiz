@@ -42,7 +42,7 @@ export default function Description() {
             </div>
 
             {/* Toolbar */}
-            <div className="flex flex-wrap gap-1 mb-2 p-2 border border-gray-200 bg-gray-50">
+            {/* <div className="flex flex-wrap gap-1 mb-2 p-2 border border-gray-200 bg-gray-50">
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleBold().run()}
@@ -78,7 +78,7 @@ export default function Description() {
                 >
                     <ListOrdered className="w-4 h-4" />
                 </button>
-            </div>
+            </div> */}
 
             {/* Editor */}
             <EditorContent editor={editor} className="border border-gray-300" />

@@ -208,7 +208,6 @@ const AddProductForm: React.FC = () => {
 
         } catch (error) {
           console.log(error);
-          toast("Failed to update product");
         }
 
       } else {
@@ -244,11 +243,10 @@ const AddProductForm: React.FC = () => {
 
           dispatch(resetDraft());
           router.push("/seller/products");
-          toast(t("productAddedSuccessfully"));
+          toast(t("productAddedsuccessfully"));
 
         } catch (error) {
           console.log(error);
-          toast("Failed to create product");
 
         }
       }
