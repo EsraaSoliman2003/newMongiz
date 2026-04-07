@@ -18,7 +18,7 @@ export default function HomeHeroSection() {
 
     if (bannerLoading || sliderLoading) {
         return (
-            <section className="container mx-auto py-6 px-4 lg:px-2 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-auto lg:h-[70vh]">
+            <section className="container mx-auto py-6 px-4 lg:px-2 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-auto lg:h-138">
                 {/* Center Skeleton */}
                 <div className="lg:col-span-12 lg:grid lg:grid-rows-3 gap-4 h-full">
                     {/* Slider Skeleton */}
@@ -31,7 +31,7 @@ export default function HomeHeroSection() {
     }
 
     return (
-        <section className="container mx-auto py-6 px-2 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-auto lg:h-[70vh]">
+        <section className="container mx-auto py-6 px-2 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-auto lg:h-138">
             <CenterSection />
         </section>
     );
