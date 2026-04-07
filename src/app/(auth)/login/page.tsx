@@ -23,7 +23,7 @@ export default function Page() {
   const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl rounded-2xl px-8 py-10 text-white shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
         {/* Logo */}
         <Link href="/" className="flex justify-center mb-6">
