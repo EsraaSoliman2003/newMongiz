@@ -232,7 +232,7 @@ export default function Orders() {
                                                 <HiOutlineCash className="w-4 h-4 text-gray-500" />
                                                 <span>
                                                     {(order.totalPrice * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                                                    <span className="text-sm">{t(currency || "USD")}</span>
+                                                    <span className="text-sm">{t("EGP")}</span>
                                                 </span>
                                             </div>
                                         </div>

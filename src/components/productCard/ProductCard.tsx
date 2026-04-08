@@ -79,7 +79,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Main Price */}
           <div className="font-bold text-base flex items-center justify-center md:justify-start">
             {(product.price * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-            <span className="text-xs ml-1">{t(currency || "USD")}</span>
+            <span className="text-xs ml-1">{t("EGP")}</span>
           </div>
 
           {/* Old Price + Discount */}
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <div className="flex items-center gap-2 justify-center md:justify-start text-xs text-gray-400">
               <span className="line-through">
                 {(product.mainPrice * (data?.[currency || "USD"] ?? 1)).toFixed(2)}{" "}
-                {currency || "USD"}
+                {t("EGP")}
               </span>
               <span className="text-green-600 font-bold">{product.discount}%</span>
             </div>

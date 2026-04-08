@@ -99,7 +99,7 @@ export default function OrderSummary() {
 
                         <span className="text-sm font-semibold">
                             {(item.price * item.qty * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                            <span className="text-sm">{t(currency || "USD")}</span>
+                            <span className="text-sm">{t("EGP")}</span>
                         </span>
                     </div>
                 ))
@@ -111,7 +111,7 @@ export default function OrderSummary() {
                     <span className="text-gray-500">{t("Subtotal")}</span>
                     <span>
                         {(itemsTotal * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                        <span className="text-sm">{t(currency || "USD")}</span>
+                        <span className="text-sm">{t("EGP")}</span>
                     </span>
                 </div>
 
@@ -119,7 +119,7 @@ export default function OrderSummary() {
                     <span className="text-gray-500">{t("ShippingFee")}</span>
                     <span>
                         {(shippingFee * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                        <span className="text-sm">{t(currency || "USD")}</span>
+                        <span className="text-sm">{t("EGP")}</span>
                     </span>
                 </div>
             </div>
@@ -184,7 +184,7 @@ export default function OrderSummary() {
                 <span>{t("Total")}</span>
                 <span>
                     {(finalTotal * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                    <span className="text-sm">{t(currency || "USD")}</span>
+                    <span className="text-sm">{t("EGP")}</span>
                 </span>
             </div>
 

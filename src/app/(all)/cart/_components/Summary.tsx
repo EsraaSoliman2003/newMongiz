@@ -33,7 +33,7 @@ export default function Summary({ }: Props) {
                 <span>{t("Total")}</span>
                 <span>
                     {(itemsTotal * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                    <span className="text-sm">{t(currency || "USD")}</span>
+                    <span className="text-sm">{t("EGP")}</span>
 
                 </span>
             </div>

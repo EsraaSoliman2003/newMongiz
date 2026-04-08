@@ -83,7 +83,7 @@ export default function InfoPart({ product }: InfoPartProps) {
   const { currency } = useAppSelector((s) => s.currencyValue)
 
   const priceSpan = () => {
-    const selectedCurrency = currency || "USD";
+    const selectedCurrency = t("EGP");
 
     const rate = data?.[selectedCurrency] ?? 1;
 

@@ -90,7 +90,7 @@ export default function Cart() {
                   {/* Price */}
                   <span className="col-span-2 text-center text-gray-600">
                     {Number(item.price * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                    <span className="text-sm">{t(currency || "USD")}</span>
+                    <span className="text-sm">{t("EGP")}</span>
                   </span>
 
                   {/* Quantity */}
@@ -121,7 +121,7 @@ export default function Cart() {
                   {/* Total */}
                   <span className="col-span-2 text-center font-medium text-gray-900">
                     {(item.price * item.qty * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                    <span className="text-sm">{t(currency || "USD")}</span>
+                    <span className="text-sm">{t("EGP")}</span>
                   </span>
                 </div>
               ))}
@@ -215,7 +215,7 @@ export default function Cart() {
                     <span>{t("Total")}</span>
                     <span>
                       {(item.price * item.qty * (data?.[currency || "USD"] ?? 1)).toFixed(2)}
-                      <span className="text-sm">{t(currency || "USD")}</span>
+                      <span className="text-sm">{t("EGP")}</span>
                     </span>
                   </div>
                 </div>
