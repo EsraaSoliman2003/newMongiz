@@ -4,11 +4,26 @@ import Link from 'next/link'
 import { User, Settings, Gift, Heart, MapPin, LifeBuoy } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { getCookie, setCookie } from 'cookies-next'
 
 type Props = {}
 
 export default function page({ }: Props) {
   const t = useTranslations();
+
+  let userObj = null;
+
+  let userCookie = getCookie("user");
+
+  if (userCookie) {
+    try {
+      userObj = JSON.parse(userCookie as string);
+    } catch (err) {
+      console.error("Failed to parse user cookie:", err);
+    }
+  }
+
+  console.log(userObj);
 
   return (
     <div className="container mt-10 mb-20">
@@ -23,14 +38,14 @@ export default function page({ }: Props) {
         >
           <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
             <Image
-              src={"/stitch.jpg"}
+              src={userObj?.imageUrl || "/stitch.jpg"}
               alt="Profile"
               width={64}
               height={64}
               className="object-cover w-full h-full"
             />
           </div>
-          <span>{t("userName")}</span>
+          <span>{userObj.fullName}</span>
         </Link>
 
         {/* Account Settings */}

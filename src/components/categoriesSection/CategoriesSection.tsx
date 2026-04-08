@@ -26,7 +26,7 @@ const EMPTY_ARRAY: any[] = [];
 ========================= */
 const CategoriesSection = () => {
   const t = useTranslations();
-  const [activeId, setActiveId] = useState(categories[0].id);
+  const [activeId, setActiveId] = useState(0);
 
   const handleChangeCategory = (id: number) => {
     setActiveId(id);
@@ -42,18 +42,15 @@ const CategoriesSection = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (categoriesData && categoriesData.length > 0) {
-      if (activeId !== categoriesData[0].id) {
-        setActiveId(categoriesData[0].id);
-      }
-    }
-  }, [categoriesData]);
-
-  useEffect(() => {
-    if (activeId) {
+    if (activeId !== null) {
       dispatch(fetchProductsByCategory({ categoryId: activeId }));
     }
-  }, [activeId, dispatch]);
+  }, [activeId]);
+
+  const categoriesWithAll = [
+    { id: 0, name: t("All"), image: "/all.webp" }, // أو أي icon
+    ...(categoriesData || []),
+  ];
 
   return (
     <section className="container py-10 px-2">
@@ -126,7 +123,7 @@ const CategoriesSection = () => {
               1024: { slidesPerView: 6 },
             }}
           >
-            {categoriesData?.map((cat) => {
+              {categoriesWithAll?.map((cat) => {
               const Icon = cat.image;
               const isActive = activeId === cat.id;
 
