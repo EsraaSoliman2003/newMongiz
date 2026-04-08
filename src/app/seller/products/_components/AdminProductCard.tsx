@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { deleteProduct } from "@/rtk/slices/products/productsPaginationSlice";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 interface Props {
   id: string;
@@ -27,10 +28,11 @@ const ProductCard: React.FC<Props> = ({
 }) => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
+  const { deleteLoading } = useAppSelector((s) => s.productsCrud);
 
-  const { deleteLoading } = useAppSelector((s) => s.productsCrud)
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     toast.custom((toastId) => (
       <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 w-[340px] space-y-4">
 
@@ -55,10 +57,13 @@ const ProductCard: React.FC<Props> = ({
             onClick={async () => {
               toast.dismiss(toastId);
               try {
+                setLoadingId(id);
                 await dispatch(deleteProduct(Number(id))).unwrap();
                 toast.success(t("deleteSuccess"));
               } catch (e) {
                 toast.error(typeof e === "string" ? e : t("deleteError"));
+              } finally {
+                setLoadingId(null);
               }
             }}
           >
@@ -70,7 +75,7 @@ const ProductCard: React.FC<Props> = ({
   };
 
   return (
-    <div className="rounded-xl bg-white box-shadow">
+    <div className="rounded-xl bg-white shadow-sm">
       {/* Image */}
       <div className="px-2 pt-2">
         <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-50">
@@ -88,12 +93,12 @@ const ProductCard: React.FC<Props> = ({
       {/* Content */}
       <div className="p-5 flex items-center justify-between">
         <div>
-          <p className="bg-[#50EE7029] text-[#50EE70] w-fit py-0.5 px-1.5 font-bold text-xs rounded-[6px]">
+          <p className={`w-fit py-0.5 px-1.5 font-bold text-xs rounded-[6px] ${status === "Active" ? "bg-[#50EE7029] text-[#50EE70]" : "bg-red-100 text-red-600"}`}>
             {status === "Active" ? t("statusActive") : t("statusInactive")}
           </p>
 
           <h3 className="mt-2 text-sm title-color line-clamp-1">{name}</h3>
-          {/* <p className="text-sm text-gray-600 mt-1">{price}</p> */}
+          <p className="text-sm text-gray-600 mt-1">${price.toFixed(2)}</p>
         </div>
 
         {/* Actions */}
@@ -113,9 +118,9 @@ const ProductCard: React.FC<Props> = ({
             onClick={handleDelete}
             className="text-red-500 hover:text-red-600 transition relative"
             aria-label={t("deleteLabel")}
-            disabled={deleteLoading}
+            disabled={deleteLoading && loadingId === id}
           >
-            {deleteLoading ? (
+            {deleteLoading && loadingId === id ? (
               <div className="w-5 h-5 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
             ) : (
               <FiTrash2 size={20} />

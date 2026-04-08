@@ -190,7 +190,7 @@ const AddProductForm: React.FC = () => {
               mainImage: mainFile ?? undefined,
               images: imageFiles,
               existsImages: productDraft.imageUrls,
-              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 || ad.key !== ""),
+              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 && ad.key !== ""),
               variants: productDraft.variants.map((v) => ({
                 attributes: v.attributes,
                 quantity: v.quantity,
@@ -229,7 +229,7 @@ const AddProductForm: React.FC = () => {
               mainImage: mainFile,
               images: imageFiles,
               keywords: productDraft.keywords,
-              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 || ad.key !== ""),
+              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 && ad.key.trim() !== ""),
               variants: productDraft.variants.map((v) => ({
                 attributes: v.attributes,
                 quantity: v.quantity,
