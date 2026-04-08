@@ -1,6 +1,7 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, deleteCookie } from "cookies-next";
 import { toast } from "sonner";
+import { navigate } from "@/utils/navigate";
 
 const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
 
@@ -38,12 +39,20 @@ instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (axios.isAxiosError(error)) {
+      const status = error.response?.status;
       const message =
         error.response?.data?.title ||
         error.response?.data?.message ||
         "An unexpected error occurred. Please try again later.";
 
       toast.error(message);
+
+      if (status === 401) {
+        deleteCookie("token");
+        deleteCookie("user");
+        deleteCookie("roles");
+        navigate("/login"); // <-- client-side navigation
+      }
     } else {
       toast.error("An unexpected error occurred. Please try again later.");
     }
