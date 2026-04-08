@@ -49,7 +49,7 @@ export const fetchProductsByCategoryHome1 = createAsyncThunk<
     const res = await axios.get(`/Product/ByCategory/${categoryId}`, {
       params: { subCategoryId },
     });
-    return res.data;
+    return res.data.items || [];
   } catch (err) {
     if (isAxiosError(err)) {
       return thunkAPI.rejectWithValue(
