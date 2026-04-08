@@ -119,7 +119,14 @@ export default function ProductPage() {
                       </div>
 
                       {product.additionalData
-                        .filter(item => ![1, 2, 3, 4, 5, 6].includes(item.type))
+                        .filter((item) => {
+                          // For types 1–6, only include if there's exactly 1 value
+                          if ([1, 2, 3, 4, 5, 6].includes(item.type)) {
+                            return item.values?.length === 1;
+                          }
+                          // For other types, include regardless of value count
+                          return true;
+                        })
                         .map((item, index, arr) => (
                           <div
                             key={item.key}

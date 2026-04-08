@@ -61,7 +61,7 @@ export default function ProductSetting({
     return (
         <>
             {product.additionalData.map((item) => {
-                if (!item.values?.length) return null;
+                if (!item.values || item.values.length <= 1 || !item.values?.length) return null;
 
                 const field = TYPE_FIELD_MAP[item.type];
                 if (!field) return null;
