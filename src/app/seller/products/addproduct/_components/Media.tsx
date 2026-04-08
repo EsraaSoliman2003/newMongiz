@@ -4,9 +4,7 @@ import React, { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, X } from "lucide-react";
-import {
-  setMainImageUrl,
-} from "@/rtk/slices/ui/ProductSlice";
+import { setMainImageUrl, setField } from "@/rtk/slices/ui/ProductSlice";
 import { RootState } from "@/rtk/store";
 
 type Props = {
@@ -24,21 +22,20 @@ export default function Media({
 }: Props) {
   const t = useTranslations("addProduct");
   const dispatch = useDispatch();
-  const { mainImageUrl } = useSelector(
+  const { mainImageUrl, imageUrls: oldImages } = useSelector(
     (state: RootState) => state.productDraft
   );
 
   /* ---------------- Main Preview ---------------- */
 
-  const mainPreview = mainFile
-    ? URL.createObjectURL(mainFile)
-    : mainImageUrl;
+  const mainPreview = mainFile ? URL.createObjectURL(mainFile) : mainImageUrl;
 
   /* ---------------- Gallery Preview ---------------- */
 
   const galleryPreviews = useMemo(() => {
-    return imageFiles.map((file) => URL.createObjectURL(file));
-  }, [imageFiles]);
+    const newImages = imageFiles.map((file) => URL.createObjectURL(file));
+    return [...(oldImages || []), ...newImages];
+  }, [imageFiles, oldImages]);
 
   /* ---------------- Handlers ---------------- */
 
@@ -63,9 +60,18 @@ export default function Media({
   };
 
   const removeImageHandler = (index: number) => {
-    setImageFiles((prev) =>
-      prev.filter((_, i) => i !== index)
-    );
+    const oldLength = oldImages?.length || 0;
+
+    if (index < oldLength) {
+      // Removing an old image
+      const newOldImages = [...(oldImages || [])];
+      newOldImages.splice(index, 1);
+      dispatch(setField({ key: "imageUrls", value: newOldImages }));
+    } else {
+      // Removing a new uploaded image
+      const newIndex = index - oldLength;
+      setImageFiles((prev) => prev.filter((_, i) => i !== newIndex));
+    }
   };
 
   const removeMainImageHandler = () => {
@@ -75,6 +81,7 @@ export default function Media({
 
   const clearAllImages = () => {
     setImageFiles([]);
+    dispatch(setField({ key: "imageUrls", value: [] }));
   };
 
   /* ---------------- UI ---------------- */
@@ -92,8 +99,7 @@ export default function Media({
         <div>
           <div className="flex items-center gap-2 mb-4">
             <span className="text-sm font-semibold text-gray-700">
-              {t("media.mainImage")}{" "}
-              <span className="text-red-500">*</span>
+              {t("media.mainImage")} <span className="text-red-500">*</span>
             </span>
           </div>
 
@@ -110,8 +116,7 @@ export default function Media({
                   <Image className="text-2xl text-emerald-600" />
                 </div>
                 <p className="text-sm font-semibold text-emerald-700">
-                  {t("media.uploadMainImage") ||
-                    "Upload main image"}
+                  {t("media.uploadMainImage") || "Upload main image"}
                 </p>
                 <p className="text-xs text-emerald-600">
                   {t("media.mainImageHint") ||
@@ -161,12 +166,10 @@ export default function Media({
                 <Image className="text-2xl text-gray-600" />
               </div>
               <p className="text-sm font-semibold text-gray-700">
-                {t("media.uploadAdditional") ||
-                  "Upload additional images"}
+                {t("media.uploadAdditional") || "Upload additional images"}
               </p>
               <p className="text-xs text-gray-500">
-                {t("media.additionalHint") ||
-                  "You can select multiple images"}
+                {t("media.additionalHint") || "You can select multiple images"}
               </p>
             </div>
           </label>
@@ -175,8 +178,7 @@ export default function Media({
             <div className="mt-8">
               <div className="flex items-center justify-between mb-4">
                 <p className="text-sm font-semibold text-gray-700">
-                  {t("media.newImages") || "New images"} (
-                  {galleryPreviews.length})
+                  {t("media.newImages") || "Images"} ({galleryPreviews.length})
                 </p>
                 <button
                   type="button"
@@ -200,9 +202,7 @@ export default function Media({
                     />
                     <button
                       type="button"
-                      onClick={() =>
-                        removeImageHandler(idx)
-                      }
+                      onClick={() => removeImageHandler(idx)}
                       className="absolute top-2 right-2 p-2 rounded-full bg-red-500 text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 shadow-lg"
                     >
                       <X className="w-4 h-4" />
