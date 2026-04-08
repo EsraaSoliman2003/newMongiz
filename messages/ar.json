@@ -534,9 +534,12 @@
   "vendors": "البائعين",
   "actions": "الإجراءات",
   "addProduct": {
+    "Age": "العمر",
+    "From 6 to 10": "من 6 الى 10 سنوات",
     "title": "إضافة منتج",
     "next": "التالى",
     "productAddedsuccessfully": "تم إضافة المنتج بنجاح",
+    "productUpdatedSuccessfully": "تم تحديث المنتج بنجاح",
     "previous": "السابق",
     "basicInfo": {
       "title": "المعلومات الأساسية",
@@ -604,7 +607,7 @@
     },
     "settings": {
       "title": "إعدادات إضافية",
-      "keywords": "الكلمات المفتاحية (مفصولة بفواصل)",
+      "keywords": "الكلمات المفتاحية للبحث",
       "keywordsPlaceholder": "مثال: موضة، صيف، خصم",
       "isFavourite": "وضع كـ مفضل",
       "addKeyword": "إضافة جديد"
@@ -876,5 +879,6 @@
   "No Image": "لا توجد صورة",
   "Slider updated successfully": "تم تحديث السلايدر بنجاح",
   "Failed to update slider": "فشل في تحديث السلايدر",
-  "Update Slider": "تحديث السلايدر"
+  "Update Slider": "تحديث السلايدر",
+  "Product Quantities": "كميات المنتج"
 }

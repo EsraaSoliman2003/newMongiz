@@ -8,8 +8,23 @@ import { fetchBrands } from '@/rtk/slices/brands/brandsSlice';
 import { fetchCategories } from '@/rtk/slices/category/categoriesSlice';
 import { fetchSubCategories } from '@/rtk/slices/subCategories/subCategoriesSliceHome1';
 import Description from './TextEditor';
+import Media from './Media';
+import Pricing from './Pricing';
 
-export default function BasicInformation() {
+type Props = {
+  mainFile: File | null;
+  setMainFile: React.Dispatch<React.SetStateAction<File | null>>;
+  imageFiles: File[];
+  setImageFiles: React.Dispatch<React.SetStateAction<File[]>>;
+};
+
+
+export default function BasicInformation({
+  mainFile,
+  setMainFile,
+  imageFiles,
+  setImageFiles,
+}: Props) {
   const t = useTranslations('addProduct');
   const dispatch = useAppDispatch();
   const { name, brandId, categoryId, subCategoryId } = useAppSelector(
@@ -63,7 +78,7 @@ export default function BasicInformation() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                {t('basicInfo.name')}
+                {t('basicInfo.name')} <span className='text-red-600'>*</span>
               </label>
               <input
                 type="text"
@@ -98,7 +113,7 @@ export default function BasicInformation() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                {t('basicInfo.category')}
+                {t('basicInfo.category')} <span className='text-red-600'>*</span>
               </label>
               <select
                 name="categoryId"
@@ -116,7 +131,7 @@ export default function BasicInformation() {
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                {t('basicInfo.subcategory')}
+                {t('basicInfo.subcategory')} <span className='text-red-600'>*</span>
               </label>
               <select
                 name="subCategoryId"
@@ -139,6 +154,15 @@ export default function BasicInformation() {
       </section>
 
       <Description />
+
+      <Media
+        mainFile={mainFile}
+        setMainFile={setMainFile}
+        imageFiles={imageFiles}
+        setImageFiles={setImageFiles}
+      />
+
+      <Pricing />
     </>
   );
 }

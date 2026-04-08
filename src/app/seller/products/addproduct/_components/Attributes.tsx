@@ -10,6 +10,7 @@ import ColorSelector from "./_components/ColorSelector";
 import AttributeInput from "./_components/AttributeInput";
 import AdditionalData from "./AdditionalData";
 import VariantsTable from "./VariantsTable";
+import Keywords from "./Keywords";
 
 const ATTRIBUTE_TYPES = [
   { type: 1, label: "colors" },
@@ -101,6 +102,7 @@ export default function Attributes() {
       </section>
       <VariantsTable />
       <AdditionalData />
+      <Keywords />
     </>
   );
 }

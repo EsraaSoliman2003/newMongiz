@@ -17,45 +17,46 @@ interface Props {
 
 const AdminBrandCard: React.FC<Props> = ({ id, name }) => {
   const t = useTranslations()
-  const dispatch = useAppDispatch(); 
-const handleDelete = async () => {
-  toast.custom((toastId) => (
-    <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 w-[340px] space-y-4">
+  const dispatch = useAppDispatch();
 
-      {/* Message */}
-      <p className="text-sm font-medium leading-relaxed text-gray-800">
-        {t("deleteConfirmBrand")} <span className="font-semibold">"{name}"</span>؟
-      </p>
+  const handleDelete = async () => {
+    toast.custom((toastId) => (
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 w-[340px] space-y-4">
 
-      {/* Buttons */}
-      <div className="flex justify-end gap-2">
-        <button
-          type="button"
-          className="px-3 py-1.5 rounded-md bg-gray-200 text-gray-900 text-sm hover:bg-gray-300 transition"
-          onClick={() => toast.dismiss(toastId)}
-        >
-          {t("Cancel")}
-        </button>
+        {/* Message */}
+        <p className="text-sm font-medium leading-relaxed text-gray-800">
+          {t("deleteConfirmBrand")} <span className="font-semibold">"{name}"</span>؟
+        </p>
 
-        <button
-          type="button"
-          className="px-3 py-1.5 rounded-md bg-red-600 text-white text-sm hover:bg-red-700 transition"
-          onClick={async () => {
-            toast.dismiss(toastId);
-            try {
-              await dispatch(deleteBrand(Number(id))).unwrap();
-              toast.success(t("Brand deleted successfully"));
-            } catch (e) {
-              toast.error(typeof e === "string" ? e : t("Failed to delete brand"));
-            }
-          }}
-        >
-          {t("Delete")}
-        </button>
+        {/* Buttons */}
+        <div className="flex justify-end gap-2">
+          <button
+            type="button"
+            className="px-3 py-1.5 rounded-md bg-gray-200 text-gray-900 text-sm hover:bg-gray-300 transition"
+            onClick={() => toast.dismiss(toastId)}
+          >
+            {t("Cancel")}
+          </button>
+
+          <button
+            type="button"
+            className="px-3 py-1.5 rounded-md bg-red-600 text-white text-sm hover:bg-red-700 transition"
+            onClick={async () => {
+              toast.dismiss(toastId);
+              try {
+                await dispatch(deleteBrand(Number(id))).unwrap();
+                toast.success(t("Brand deleted successfully"));
+              } catch (e) {
+                toast.error(typeof e === "string" ? e : t("Failed to delete brand"));
+              }
+            }}
+          >
+            {t("Delete")}
+          </button>
+        </div>
       </div>
-    </div>
-  ));
-};
+    ));
+  };
 
   return (
     <div className="rounded-xl bg-white box-shadow p-5 flex items-center justify-between">

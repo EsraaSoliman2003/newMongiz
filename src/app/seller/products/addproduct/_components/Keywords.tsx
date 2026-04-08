@@ -36,7 +36,7 @@ export default function Keywords() {
       {/* Header */}
       <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
         <h3 className="text-2xl font-bold text-main bg-clip-text text-transparent">
-          {t("settings.title")}
+          {t("settings.keywords")}
         </h3>
       </div>
 

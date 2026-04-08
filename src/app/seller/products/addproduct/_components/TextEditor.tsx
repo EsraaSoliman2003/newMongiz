@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/rtk/store';
@@ -16,7 +16,7 @@ export default function Description() {
 
     const editor = useEditor({
         extensions: [StarterKit],
-        content: description,
+        content: '',
         onUpdate: ({ editor }) => {
             dispatch(setField({ key: 'description', value: editor.getHTML() }));
         },
@@ -25,8 +25,15 @@ export default function Description() {
                 class: 'prose prose-sm max-w-none focus:outline-none min-h-[200px] p-4',
             },
         },
-        immediatelyRender: false, // ← Fixes SSR hydration error
+        immediatelyRender: false,
     });
+
+    // Update editor content when description changes
+    useEffect(() => {
+        if (editor && description) {
+            editor.commands.setContent(description);
+        }
+    }, [description, editor]);
 
     if (!editor) {
         return null;
@@ -37,7 +44,7 @@ export default function Description() {
             {/* Header */}
             <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
                 <h3 className="text-2xl font-bold text-main bg-clip-text text-transparent">
-                    {t('description.title') || 'Description'}
+                    {t('description.title') || 'Description'} <span className='text-red-600'>*</span>
                 </h3>
             </div>
 

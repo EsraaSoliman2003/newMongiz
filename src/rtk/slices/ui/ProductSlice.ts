@@ -62,7 +62,11 @@ const initialState: ProductDraft = {
 
   types: [],
   keywords: [],
-  additionalData: [],
+
+  // Add one empty Custom type item
+  additionalData: [
+    { id: 0, type: 7, key: "", values: [""] }  // <-- placeholder here
+  ],
   variants: [],
 };
 

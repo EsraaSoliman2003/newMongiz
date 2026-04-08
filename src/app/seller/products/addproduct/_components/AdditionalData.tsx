@@ -19,7 +19,6 @@ export default function AdditionalData() {
     (state: RootState) => state.productDraft.additionalData
   );
 
-  const [inputs, setInputs] = useState<Record<number, string>>({});
 
   const customItems = additionalData
     .map((item, originalIndex) => ({ item, originalIndex }))
@@ -77,16 +76,16 @@ export default function AdditionalData() {
               type="text"
               value={item.key}
               onChange={(e) => updateKeyName(originalIndex, e.target.value)}
-              placeholder={t("additionalData.keyPlaceholder")}
+              placeholder={t("Age")}
               className="w-full py-2 px-4 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-200 transition-all"
             />
 
-            {/* Value (always input now) */}
+            {/* Value */}
             <input
               type="text"
               value={item.values[0] || ""}
               onChange={(e) => saveValue(originalIndex, e.target.value)}
-              placeholder={t("additionalData.valuePlaceholder")}
+              placeholder={t("From 6 to 10")}
               className="w-full py-2 px-4 border border-gray-300 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-200 transition-all"
             />
           </div>

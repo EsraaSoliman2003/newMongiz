@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { deleteCategory, fetchCategoryById } from "@/rtk/slices/category/categoriesSlice";
 import Image from "next/image";
 import SubCategoryGrid from "./SubCategoryGrid";
@@ -19,6 +19,7 @@ const CategoryDetailsPage: React.FC<Props> = ({ categoryId }) => {
     const t = useTranslations();
     const dispatch = useAppDispatch();
     const router = useRouter();
+    const [deleteLoading, setDeleteLoading] = useState(false)
 
     useEffect(() => {
         dispatch(fetchCategoryById(categoryId));
@@ -26,34 +27,54 @@ const CategoryDetailsPage: React.FC<Props> = ({ categoryId }) => {
 
     const { selectedSimpleCategory, loading } = useAppSelector((s) => s.categories);
 
-    const handleDelete = () => {
-        toast(
-            <div className="flex items-center justify-between gap-3 text-sm">
-                <span>{t("You want to delete this category")}</span>
-                <div className="flex gap-2">
-                    <button
-                        className="bg-red-500 text-white px-2 py-0.5 rounded hover:bg-red-600 transition"
-                        onClick={async () => {
-                            const res = await dispatch(deleteCategory(Number(categoryId)));
-                            if (deleteCategory.fulfilled.match(res)) {
-                                router.push("/admin/categories");
-                                toast.success(t("Category deleted successfully"));
-                            } else {
-                                toast.error(t("Failed to delete category"));
-                            }
-                        }}
-                    >
-                        {t("Delete")}
-                    </button>
+    const handleDelete = async () => {
+        let toastId: string | number = ""; // track toast id
+
+        // Show the custom toast
+        toastId = toast.custom((id) => (
+            <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 w-[340px] space-y-4">
+
+                {/* Message */}
+                <p className="text-sm font-medium leading-relaxed text-gray-800">
+                    {t("You want to delete this category")}
+                </p>
+
+                {/* Buttons */}
+                <div className="flex justify-end gap-2">
                     <button
                         className="bg-gray-300 text-black px-2 py-0.5 rounded hover:bg-gray-400 transition"
-                        onClick={() => toast.dismiss()}
+                        onClick={() => toast.dismiss(id)}
                     >
                         {t("Cancel")}
                     </button>
+
+                    <button
+                        className={`bg-red-500 text-white px-2 py-0.5 rounded hover:bg-red-600 transition flex items-center justify-center gap-2 ${deleteLoading ? "opacity-70 cursor-not-allowed" : ""
+                            }`}
+                        onClick={async () => {
+                            if (deleteLoading) return;
+                            setDeleteLoading(true);
+
+                            try {
+                                await dispatch(deleteCategory(Number(categoryId))).unwrap();
+                                toast.success(t("Category deleted successfully"));
+                                router.push("/admin/categories");
+                            } catch (e) {
+                                toast.error(t("Failed to delete category"));
+                            } finally {
+                                setDeleteLoading(false);
+                                toast.dismiss(id); // close toast after action
+                            }
+                        }}
+                    >
+                        {deleteLoading && (
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        )}
+                        {t("Delete")}
+                    </button>
                 </div>
             </div>
-        );
+        ));
     };
 
     return (
@@ -107,12 +128,18 @@ const CategoryDetailsPage: React.FC<Props> = ({ categoryId }) => {
                             >
                                 <FiEdit2 size={20} />
                             </Link>
+                            {/* Delete button with loader */}
                             <button
                                 onClick={handleDelete}
-                                className="flex items-center justify-center w-10 h-10 rounded-full text-red-600 hover:bg-red-50 hover:text-red-700 transition"
+                                className={`flex items-center justify-center w-10 h-10 rounded-full text-red-600 hover:bg-red-50 hover:text-red-700 transition relative`}
                                 title={t("Delete")}
+                                disabled={deleteLoading} // disable while loading
                             >
-                                <FiTrash2 size={20} />
+                                {deleteLoading ? (
+                                    <div className="w-5 h-5 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+                                ) : (
+                                    <FiTrash2 size={20} />
+                                )}
                             </button>
                         </div>
                     </div>

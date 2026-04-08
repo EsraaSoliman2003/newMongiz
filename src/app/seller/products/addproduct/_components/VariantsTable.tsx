@@ -81,7 +81,7 @@ export default function VariantsTable() {
             {/* Header */}
             <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
                 <h3 className="text-2xl font-bold text-main bg-clip-text text-transparent">
-                    {t("Product Variants")}
+                    {t("Product Quantities")}
                 </h3>
             </div>
 
@@ -93,7 +93,7 @@ export default function VariantsTable() {
             )}
 
             {/* Variants Grid */}
-            <div className="grid gap-4">
+            <div className="grid gap-4 max-h-150 overflow-y-auto">
                 {productDraft.variants.map((variant, idx) => (
                     <div
                         key={idx}

@@ -90,10 +90,10 @@ const AddProductForm: React.FC = () => {
   const stepMeta: { key: string; icon: StepIcon }[] = [
     { key: "basic", icon: "FileText" },
     { key: "attributes", icon: "Layers" },
-    { key: "media", icon: "Image" },
-    { key: "pricing", icon: "DollarSign" },
+    // { key: "media", icon: "Image" },
+    // { key: "pricing", icon: "DollarSign" },
     // { key: "types", icon: "Tag" },
-    { key: "keywords", icon: "Settings" },
+    // { key: "keywords", icon: "Settings" },
   ];
 
   /* ---------------------------------- */
@@ -101,19 +101,24 @@ const AddProductForm: React.FC = () => {
   /* ---------------------------------- */
 
   const stepRenderers: (() => React.ReactNode)[] = [
-    () => <BasicInformation />,
+    () => <BasicInformation
+      mainFile={mainFile}
+      setMainFile={setMainFile}
+      imageFiles={imageFiles}
+      setImageFiles={setImageFiles}
+    />,
     () => <Attributes />,
-    () => (
-      <Media
-        mainFile={mainFile}
-        setMainFile={setMainFile}
-        imageFiles={imageFiles}
-        setImageFiles={setImageFiles}
-      />
-    ),
-    () => <Pricing />,
+    // () => (
+    //   <Media
+    //     mainFile={mainFile}
+    //     setMainFile={setMainFile}
+    //     imageFiles={imageFiles}
+    //     setImageFiles={setImageFiles}
+    //   />
+    // ),
+    // () => <Pricing />,
     // () => <ProductTypes />,
-    () => <Keywords />,
+    // () => <Keywords />,
   ];
 
   /* ---------------------------------- */
@@ -127,19 +132,10 @@ const AddProductForm: React.FC = () => {
           productDraft.name.trim() !== "" &&
           productDraft.categoryId !== null &&
           productDraft.categoryId !== 0 &&
-          productDraft.brandId !== 0 &&
-          productDraft.description?.trim() !== ""
-
-        );
-
-      case 2:
-        if (!selectedProduct)
-          return !!mainFile;
-
-      case 3:
-        return (
+          productDraft.description?.trim() !== "" &&
           productDraft.mainPrice > 0 &&
-          productDraft.mainPrice < 1000000
+          productDraft.mainPrice < 1000000 &&
+          (!selectedProduct ? !!mainFile : true) // if no selectedProduct, mainFile must exist
         );
 
       default:
@@ -194,7 +190,7 @@ const AddProductForm: React.FC = () => {
               mainImage: mainFile ?? undefined,
               images: imageFiles,
               existsImages: productDraft.imageUrls,
-              additionalData: productDraft.additionalData ?? [],
+              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 || ad.key !== ""),
               variants: productDraft.variants.map((v) => ({
                 attributes: v.attributes,
                 quantity: v.quantity,
@@ -233,7 +229,7 @@ const AddProductForm: React.FC = () => {
               mainImage: mainFile,
               images: imageFiles,
               keywords: productDraft.keywords,
-              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0),
+              additionalData: productDraft.additionalData.filter((ad) => ad.values.length > 0 || ad.key !== ""),
               variants: productDraft.variants.map((v) => ({
                 attributes: v.attributes,
                 quantity: v.quantity,
