@@ -85,25 +85,6 @@ export default function CenterSection() {
                       {/* Gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-[5]" />
                     </div>
-
-                    {/* النص + الزر قابلين للضغط */}
-                    <div
-                      className={`absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 ${t(
-                        "dir"
-                      ) === "rtl" && "lg:left-auto"} lg:translate-x-0 ${
-                        t("dir") === "rtl"
-                          ? "lg:right-15 lg:text-right"
-                          : "lg:left-15 lg:text-left"
-                      } text-center z-20 space-y-3 block`}
-                    >
-                      <p className="text-sm bg-white/90 backdrop-blur-sm inline-block px-3 py-1 rounded-full">
-                        {t("NewProduct")}
-                      </p>
-                      <h2 className="text-3xl font-bold mb-4 lg:mb-6 leading-relaxed drop-shadow-lg">
-                        {slide.text}
-                      </h2>
-                      <MainButton text={t("ShopNow")} className="transition-transform" />
-                    </div>
                   </Link>
                 </SwiperSlide>
               ))}

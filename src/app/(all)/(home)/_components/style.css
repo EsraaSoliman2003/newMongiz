@@ -8,22 +8,6 @@
   justify-content: center;
 }
 
-@media (min-width: 1024px) {
-  .Sponsers .swiper-pagination {
-    left: auto;
-    right: 20px;
-    transform: none;
-    justify-content: flex-end;
-  }
-
-  .SponsersLeft .swiper-pagination {
-    right: auto;
-    left: 20px;
-    transform: none;
-    justify-content: flex-end;
-  }
-}
-
 .Sponsers .swiper-pagination .swiper-pagination-bullet {
   width: 6px;
   height: 6px;

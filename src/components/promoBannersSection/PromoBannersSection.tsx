@@ -11,7 +11,7 @@ const PromoBannersSection = () => {
   return (
     <section className="container py-10 px-2">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[8, 9].map((index) => (
+        {[0, 1].map((index) => (
           <Link
             href={data[0]?.links?.[index] || "/"}
             key={index}
@@ -19,21 +19,6 @@ const PromoBannersSection = () => {
           >
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 z-0" />
-
-            {/* Text */}
-            {
-              data[0]?.titles?.[index] && (
-                <div className="relative z-10 px-6">
-                  <span className="text-sm">منتج جديد</span>
-
-                  <h3 className="text-xl font-bold mt-2 leading-snug max-w-[150px]">
-                    {data[0]?.titles?.[index]}
-                  </h3>
-
-                  <MainButton text={"اطلب الآن"} className="mt-4" />
-                </div>
-              )
-            }
 
             {/* Image */}
             <SafeImage
