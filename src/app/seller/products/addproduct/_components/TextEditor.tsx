@@ -30,16 +30,16 @@ export default function Description() {
                     dispatch(
                         setField({
                             key: "description",
-                            value: e.target.value.replace(/(\r\n|\n|\r)/gm, " "), // استبدال أي سطر جديد بمسافة
+                            value: e.target.value.replace(/(\r\n|\n|\r)/gm, " "),
                         })
                     )
                 }
                 onKeyDown={(e) => {
-                    if (e.key === "Enter") e.preventDefault(); // يمنع عمل سطر جديد
+                    if (e.key === "Enter") e.preventDefault();
                 }}
-                placeholder="Enter description..."
+                placeholder={t("description.title")}
                 className="w-full border border-gray-300 p-4 focus:outline-none resize-none"
-                style={{ height: "200px", textAlign: "left" }}
+                style={{ height: "200px" }}
             />
         </section>
     );
