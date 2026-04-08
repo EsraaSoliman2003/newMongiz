@@ -20,6 +20,7 @@ export default function OrderSummary() {
     const { items, itemsTotal, totalPrice, coupon, setCouponCode, address, clear, setAddressInfo } = useCart();
     const { data } = useAppSelector((s) => s.currency)
     const { currency } = useAppSelector((s) => s.currencyValue)
+    const { createLoading } = useAppSelector((s) => s.order)
 
     const dispatch = useAppDispatch();
 
@@ -30,41 +31,42 @@ export default function OrderSummary() {
 
     const finalTotal = itemsTotal + shippingFee;
 
-    const handleOrder = () => {
+    const handleOrder = async () => {
         if (!emailConfirmed) {
-            toast(t("confirm required"))
-            return
+            toast(t("confirm required"));
+            return;
         }
+
         if (address?.id && items && items.length !== 0) {
             const formattedProducts = items.map((item) => ({
                 productId: item.id,
                 quantity: item.qty,
                 typeId: item.selectedOptions.type?.id ?? null,
                 additionalDataSelections: Object.values(item.selectedOptions)
-                    .filter((opt): opt is { id: number; name: string } => !!opt) // filter out undefined and type guard
+                    .filter((opt): opt is { id: number; name: string } => !!opt)
                     .map((opt) => ({
-                        productAdditionalDataId: Number(opt.id), // ensure number
+                        productAdditionalDataId: Number(opt.id),
                         selectedValue: opt.name || "",
                     })),
             }));
 
             try {
-                dispatch(
+                await dispatch(
                     createOrder({
                         deliveryAddressId: address.id,
                         couponCode: coupon,
                         orderProducts: formattedProducts,
                     })
-                );
+                ).unwrap();
                 router.push("/orders");
                 clear();
                 setAddressInfo(null);
+
             } catch (error) {
                 toast(t("TryAgain"));
             }
         }
     };
-
     return (
         <div className="border border-gray-200 rounded-xl p-6 space-y-5 h-fit">
             <h2 className="text-xl font-bold">{t("YourOrder")}</h2>
@@ -87,7 +89,9 @@ export default function OrderSummary() {
                         />
 
                         <div className="flex-1 text-sm">
-                            <p className="font-medium">{item.name}</p>
+                            <p className="font-medium line-clamp-2">
+                                {item.name}
+                            </p>
                             <span className="text-gray-400">
                                 {t("Quantity")}: {item.qty}
                             </span>
@@ -203,7 +207,7 @@ export default function OrderSummary() {
             <MainButton
                 text={t("PlaceOrder")}
                 className="w-full"
-                disabled={items.length === 0 || !address}
+                disabled={items.length === 0 || !address || createLoading}
                 onClick={handleOrder}
             />
         </div>
