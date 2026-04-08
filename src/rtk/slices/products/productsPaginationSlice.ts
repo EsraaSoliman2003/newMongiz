@@ -67,8 +67,8 @@ export type CreateProductPayload = {
   discount?: number;
   quantity?: number;
   categoryId: number;
-  subCategoryId?: number;
-  brandId: number;
+  subCategoryId?: number | null;
+  brandId?: number | null;
 
   limitProducts?: number;
   limitStock?: number;
@@ -299,11 +299,13 @@ export const createProduct = createAsyncThunk<
     formData.append("Description", data.description);
     formData.append("MainPrice", String(data.mainPrice));
     formData.append("CategoryId", String(data.categoryId));
-    formData.append("BrandId", String(data.brandId));
     formData.append("MainImage", data.mainImage);
 
     // ===== optional =====
-    if (data.subCategoryId !== undefined)
+    if(data.brandId !== undefined && data.brandId != 0)
+      formData.append("BrandId", String(data.brandId));
+
+    if (data.subCategoryId !== undefined && data.brandId != 0)
       formData.append("SubCategoryId", String(data.subCategoryId));
 
     if (data.discount !== undefined)
