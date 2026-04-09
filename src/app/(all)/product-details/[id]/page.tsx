@@ -136,9 +136,16 @@ export default function ProductPage() {
                             <span className="font-medium text-gray-600">
                               {item.key}
                             </span>
-                            <span className="text-gray-800">
-                              {item.values?.[0]}
-                            </span>
+                            {item.type !== 1 ? (
+                              <span className="text-gray-800">
+                                {item.values?.[0]}
+                              </span>
+                            ) : (
+                              <span
+                                className="inline-block w-8 h-8  hover:border-gray-400 transition-all"
+                                style={{ backgroundColor: item.values?.[0] }}
+                              />
+                            )}
                           </div>
                         ))}
                     </div>

@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { getCookie } from "cookies-next";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
-const GOOGLE_CLIENT_ID = "147350394688-9n2a47jbigec3rq5td0a465l8deuijp6.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = "534504469249-6t0bshim5ie4m8kji4hs930vgbm67kcm.apps.googleusercontent.com";
 
 export default function ProtectedAuthLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();

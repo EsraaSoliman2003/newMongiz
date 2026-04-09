@@ -50,7 +50,7 @@ const VendorDetailsDemo: React.FC = () => {
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                 <div className="relative w-full md:w-70 lg:w-80 h-48 rounded-md overflow-hidden">
                     <Image
-                        src={profile?.image || "/labtop.jpg"}
+                        src={profile?.image || "/not-found.jpg"}
                         alt={profile?.name || ""}
                         fill
                         className="object-cover"

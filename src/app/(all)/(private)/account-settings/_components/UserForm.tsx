@@ -78,14 +78,14 @@ export default function UserForm() {
         {/* Profile Image */}
         <div className="flex justify-center lg:justify-start">
           <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-gray-300 relative">
-            {/* <SafeImage
+            <SafeImage
               src={preview}
               alt="Profile"
               fill
               sizes="128px"
               className="object-cover"
               priority={false}
-            /> */}
+            />
             <input
               type="file"
               accept="image/*"

@@ -9,14 +9,14 @@ export default function HomeHeroSection() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchBanners());
+        // dispatch(fetchBanners());
         dispatch(fetchSlider());
     }, [dispatch]);
 
-    const { loading: bannerLoading } = useAppSelector((s) => s.banner);
+    // const { loading: bannerLoading } = useAppSelector((s) => s.banner);
     const { loading: sliderLoading } = useAppSelector((s) => s.slider);
 
-    if (bannerLoading || sliderLoading) {
+    if (sliderLoading) {
         return (
             <section className="container mx-auto py-6 px-4 lg:px-2 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 h-auto lg:h-138">
                 {/* Center Skeleton */}

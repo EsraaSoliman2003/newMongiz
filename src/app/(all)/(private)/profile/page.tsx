@@ -38,7 +38,7 @@ export default function page({ }: Props) {
         >
           <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
             <Image
-              src={"/stitch.jpg"}
+              src={userObj.imageUrl || "/default-logo.png"}
               alt="Profile"
               width={64}
               height={64}

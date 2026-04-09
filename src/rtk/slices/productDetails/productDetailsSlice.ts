@@ -23,6 +23,11 @@ interface AdditionalDataItem {
   values: string[];
 }
 
+export type Variant = {
+  attributes: Record<string, string>; // key: color, size, etc.
+  quantity: number;
+};
+
 export type ProductApi = {
   lang?: string;
 
@@ -63,6 +68,7 @@ export type ProductApi = {
   hasReviewed?: boolean;
   keywords?: string[];
   additionalData?: AdditionalDataItem[];
+  variants?: Variant[];
 };
 
 export type FeaturedProductApi = {
