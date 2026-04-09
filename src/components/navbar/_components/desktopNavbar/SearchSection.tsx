@@ -140,7 +140,7 @@ export default function SearchSection({ onClose, hideButton }: SidebarHeaderProp
 
     return (
         <div className="w-full" ref={containerRef}>
-            <div className="relative flex items-center w-full bg-white rounded-full border border-gray-300 focus-within:border-green-500 focus-within:ring-2 focus-within:ring-green-500/20 transition-all duration-200">
+            <div className="relative flex items-center w-full bg-white rounded-full border border-gray-300 focus-within:border-orange-500 focus-within:ring-2 focus-within:ring-orange-500/20 transition-all duration-200">
                 <Search size={18} className="absolute left-4 text-gray-400" />
 
                 <input
@@ -162,7 +162,7 @@ export default function SearchSection({ onClose, hideButton }: SidebarHeaderProp
                 <button
                     onClick={handleVoiceSearch}
                     className={`absolute right-2 p-1.5 rounded-full transition-all duration-200 ${listening
-                            ? "bg-green-100 text-green-600 animate-pulse"
+                            ? "bg-orange-100 text-orange-600 animate-pulse"
                             : "text-gray-400 hover:text-gray-600 hover:bg-gray-100"
                         }`}
                     type="button"

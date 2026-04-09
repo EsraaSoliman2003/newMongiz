@@ -302,7 +302,7 @@ export const createProduct = createAsyncThunk<
     formData.append("MainImage", data.mainImage);
 
     // ===== optional =====
-    if(data.brandId !== undefined && data.brandId != 0)
+    if (data.brandId !== undefined && data.brandId != 0)
       formData.append("BrandId", String(data.brandId));
 
     if (data.subCategoryId !== undefined && data.brandId != 0)
@@ -386,9 +386,11 @@ export const updateProduct = createAsyncThunk<
     formData.append("Description", data.description);
     formData.append("MainPrice", String(data.mainPrice));
     formData.append("CategoryId", String(data.categoryId));
-    formData.append("BrandId", String(data.brandId));
 
-    if (data.subCategoryId !== undefined) {
+    if (data.brandId !== undefined && data.brandId != 0)
+      formData.append("BrandId", String(data.brandId));
+
+    if (data.subCategoryId !== undefined && data.subCategoryId != 0) {
       formData.append("SubCategoryId", String(data.subCategoryId));
     }
 
