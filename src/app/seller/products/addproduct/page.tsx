@@ -60,7 +60,7 @@ const AddProductForm: React.FC = () => {
       dispatch(setField({ key: "name", value: selectedProduct.name }));
       dispatch(setField({ key: "description", value: selectedProduct.description }));
       dispatch(setField({ key: "mainPrice", value: selectedProduct.mainPrice }));
-      dispatch(setField({ key: "brandId", value: selectedProduct.brand.id }));
+      dispatch(setField({ key: "brandId", value: selectedProduct.brand?.id ?? 0, }));
       dispatch(setField({ key: "categoryId", value: selectedProduct.categoryId }));
       dispatch(setField({ key: "subCategoryId", value: selectedProduct.subCategoryId }));
       dispatch(setField({ key: "discount", value: selectedProduct.discount }));
