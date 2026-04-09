@@ -887,5 +887,11 @@
   "Slider updated successfully": "تم تحديث السلايدر بنجاح",
   "Failed to update slider": "فشل في تحديث السلايدر",
   "Update Slider": "تحديث السلايدر",
-  "Product Quantities": "كميات المنتج"
+  "Product Quantities": "كميات المنتج",
+  "Recover Your Account": "استعادة حسابك",
+  "We received a request to recover your account": "لقد تلقينا طلبًا لاستعادة حسابك.",
+  "Click the button below to confirm and restore your account access If you didn’t request this, you can safely ignore this page": "اضغط على الزر بالأسفل لتأكيد واستعادة الوصول إلى حسابك. إذا لم تقم بطلب ذلك، يمكنك تجاهل هذه الصفحة بأمان.",
+  "Recover Account": "استعادة الحساب",
+  "Processing": "جارٍ المعالجة...",
+  "Contact support": "تواصل مع الدعم"
 }
