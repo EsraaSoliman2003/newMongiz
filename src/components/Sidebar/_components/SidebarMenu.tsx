@@ -89,6 +89,11 @@ export default function SidebarMenu({
       path: `/admin/orders`,
     },
     {
+      name: t("Sellers"),
+      icon: <HiOutlineUsers className="text-xl" />,
+      path: "/admin/sellers",
+    },
+    {
       name: t("customers"),
       icon: <HiOutlineUsers className="text-xl" />,
       path: "/admin/customers",
@@ -134,7 +139,7 @@ export default function SidebarMenu({
       path: "/admin/settings",
     },
   ];
-  
+
 
   return (
     <nav className="flex-1 px-2 py-2 space-y-1 overflow-y-auto">
@@ -156,7 +161,7 @@ export default function SidebarMenu({
             {item.icon}
             <span className="font-medium">{item.name}</span>
 
-            {item.name === t("customers") &&
+            {item.name === t("Sellers") &&
               pending &&
               pending.length > 0 && (
                 <span className="ml-auto bg-red-500 text-white text-xs font-bold min-w-5 h-5 px-1 flex items-center justify-center rounded-full">

@@ -893,5 +893,19 @@
   "Click the button below to confirm and restore your account access If you didn’t request this, you can safely ignore this page": "اضغط على الزر بالأسفل لتأكيد واستعادة الوصول إلى حسابك. إذا لم تقم بطلب ذلك، يمكنك تجاهل هذه الصفحة بأمان.",
   "Recover Account": "استعادة الحساب",
   "Processing": "جارٍ المعالجة...",
-  "Contact support": "تواصل مع الدعم"
+  "Contact support": "تواصل مع الدعم",
+  "Sellers": "التجار",
+  "Approved": "مقبول",
+  "Pending": "قيد المراجعة",
+  "CommercialRegister": "السجل التجاري",
+  "TaxCard": "البطاقة الضريبية",
+  "SellerInfo": "بيانات البائع",
+  "CountryCode": "كود الدولة",
+  "SellerID": "رقم البائع",
+  "Status": "الحالة",
+  "OpenImage": "عرض الصورة",
+  "Action": "الإجراء",
+  "AlreadyApproved": "تمت الموافقة مسبقًا",
+  "Approve": "موافقة",
+  "vendorApprovalFailed": "فشل في الموافقة على البائع"
 }

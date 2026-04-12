@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useAppDispatch } from "@/rtk/hooks";
 
 // const tabsKeys = ["all", "platinum", "gold", "silver", "bronze"];
-const tabsKeys = ["all", "users", "clients"];
+const tabsKeys = ["vendors", "pendingVendors"];
 interface Props {
   activeTab: string;
   setActiveTab: (value: string) => void;

@@ -1,13 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
-import { Pencil, Trash2, Mail, Phone, CheckCircle } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Pencil, Trash2, Mail, Phone, CheckCircle, FileText } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { deleteUser, fetchUsers, User } from "@/rtk/slices/user/userSlice";
+import { User } from "@/rtk/slices/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import Image from "next/image";
 import LoadingSpinner from "../../_components/LoadingSpinner";
-import { Seller } from "@/rtk/slices/seller/sellerSlice";
+import { approveSeller, fetchAllSellers, fetchPendingSellers, Seller } from "@/rtk/slices/seller/sellerSlice";
 import { toast } from "sonner";
+import Link from "next/link";
 
 interface Props {
   activeTab: string;
@@ -22,7 +23,8 @@ export default function Customers({ activeTab }: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUsers({ page: 1, pageSize: 50 }));
+    dispatch(fetchAllSellers())
+    dispatch(fetchPendingSellers())
   }, [dispatch]);
 
   const { users, loading: usersLoading } = useAppSelector((s) => s.users);
@@ -32,6 +34,7 @@ export default function Customers({ activeTab }: Props) {
 
   const handleApproveVendor = (id: number) => {
     try {
+      dispatch(approveSeller(id))
       toast(t("vendorAccepted"));
     } catch (error) {
     }
@@ -62,7 +65,7 @@ export default function Customers({ activeTab }: Props) {
             onClick={async () => {
               toast.dismiss(toastId);
               try {
-                await dispatch(deleteUser(id.toString())).unwrap();
+                // await dispatch(deleteUser(id.toString())).unwrap();
                 toast.success(t("userDeletedSuccessfully"));
               } catch (e) {
                 toast.error(typeof e === "string" ? e : t("failedToDeleteUser"));
@@ -143,10 +146,14 @@ export default function Customers({ activeTab }: Props) {
 
               {/* Actions */}
               <div className="col-span-2 flex items-center gap-4 text-gray-400">
-                <Pencil
-                  size={18}
-                  className="cursor-pointer hover:text-gray-700 transition"
-                />
+                <Link
+                  href={`/admin/sellers/${customer.id}`}
+                >
+                  <FileText
+                    size={18}
+                    className="cursor-pointer hover:text-gray-700 transition"
+                  />
+                </Link>
                 <Trash2
                   size={18}
                   className="cursor-pointer hover:text-red-500 transition"
@@ -221,10 +228,14 @@ export default function Customers({ activeTab }: Props) {
 
             {/* Actions */}
             <div className="flex justify-end gap-5 pt-3 border-t border-gray-100 text-gray-400">
-              <Pencil
-                size={18}
-                className="cursor-pointer hover:text-gray-700 transition"
-              />
+                <Link
+                  href={`/admin/sellers/${customer.id}`}
+                >
+                  <FileText
+                    size={18}
+                    className="cursor-pointer hover:text-gray-700 transition"
+                  />
+                </Link>
               <Trash2
                 size={18}
                 className="cursor-pointer hover:text-red-500 transition"

@@ -25,7 +25,7 @@ export default function SectionHeader({
       <div>
         <h2 className="text-xl font-bold text-gray-800 relative inline-block">
           {title}
-          <span className="block w-10 h-[3px] bg-main rounded-full mt-2"></span>
+          <span className="block w-10 h-0.75 bg-main rounded-full mt-2"></span>
         </h2>
 
         {subtitle && (
@@ -41,7 +41,7 @@ export default function SectionHeader({
           text={`+ ${buttonText}`}
           className="w-auto"
           onClick={onButtonClick}
-          href={link} // لو فيه رابط، Button يتحول لـ Link
+          href={link}
         />
       )}
     </div>
