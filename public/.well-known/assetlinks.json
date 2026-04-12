@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.imothmr.mongiz",
+      "sha256_cert_fingerprints": [
+        "D0:29:B4:1A:FF:A3:D4:3B:CA:61:AB:88:B4:93:71:B4:4C:BD:D4:D0",
+        "D2:66:65:BF:6D:73:3E:0E:1C:42:09:77:EB:C6:5A:9A:C1:26:55:71"
+      ]
+    }
+  }
+]
