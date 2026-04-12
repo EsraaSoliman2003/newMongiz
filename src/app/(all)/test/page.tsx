@@ -83,7 +83,7 @@ export default function Page() {
           )}
 
           <model-viewer
-            src="/test1.glb"
+            src="/test3.glb"
             auto-rotate
             camera-controls
             loading="lazy"
