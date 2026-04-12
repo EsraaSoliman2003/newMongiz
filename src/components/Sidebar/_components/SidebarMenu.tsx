@@ -113,31 +113,31 @@ export default function SidebarMenu({
       icon: <HiOutlinePhone className="text-xl" />,
       path: "/admin/contact-info",
     },
-    {
-      name: t("How It Work"),
-      icon: <BookOpen className="text-xl" />,
-      path: "/admin/how-it-work",
-    },
+    // {
+    //   name: t("How It Work"),
+    //   icon: <BookOpen className="text-xl" />,
+    //   path: "/admin/how-it-work",
+    // },
     {
       name: t("Notification Mobile"),
       icon: <Bell className="text-xl" />,
       path: "/admin/notification-mobile",
     },
-    {
-      name: t("Social"),
-      icon: <Share2 className="text-xl" />,
-      path: "/admin/social",
-    },
+    // {
+    //   name: t("Social"),
+    //   icon: <Share2 className="text-xl" />,
+    //   path: "/admin/social",
+    // },
     {
       name: t("Support"),
       icon: <HiOutlineSupport className="text-xl" />,
       path: "/admin/support",
     },
-    {
-      name: t("settings"),
-      icon: <HiOutlineCog className="text-xl" />,
-      path: "/admin/settings",
-    },
+    // {
+    //   name: t("settings"),
+    //   icon: <HiOutlineCog className="text-xl" />,
+    //   path: "/admin/settings",
+    // },
   ];
 
 
