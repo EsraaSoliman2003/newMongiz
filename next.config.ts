@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "mongiz-multi-vendor.api.imothmr.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
     ],
   },
   async headers() {
