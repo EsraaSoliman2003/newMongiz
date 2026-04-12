@@ -204,7 +204,6 @@ const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
               {[
                 { code: "ar", label: "العربية" },
                 { code: "en", label: "English" },
-                { code: "zh", label: "中文" }
               ].map((lang) => (
                 <button
                   key={lang.code}

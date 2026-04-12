@@ -14,7 +14,7 @@ const LanguageDropdown = ({ locale }: Props) => {
   const languages = [
     { code: "en", label: "English", flag: "🇺🇸" },
     { code: "ar", label: "العربية", flag: "🇸🇦" },
-    { code: "zh", label: "中文", flag: "🇨🇳" },
+    // { code: "zh", label: "中文", flag: "🇨🇳" },
   ];
 
   const changeLanguage = (code: string) => {
