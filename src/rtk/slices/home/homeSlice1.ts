@@ -64,7 +64,9 @@ interface HomeState {
   category: Category | null;
   subCategories: SubCategory[];
   products: Product[];
-  loading: boolean;
+  loadingCategory: boolean;
+  loadingSubCategories: boolean;
+  loadingProducts: boolean;
   error: string | null;
 }
 
@@ -72,7 +74,9 @@ const initialState: HomeState = {
   category: null,
   subCategories: [],
   products: [],
-  loading: false,
+  loadingProducts: false,
+  loadingCategory: false,
+  loadingSubCategories: false,
   error: null,
 };
 
@@ -83,41 +87,43 @@ const homeSlice1 = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCategoryByIdHome1.pending, (state) => {
-        state.loading = true;
+        state.loadingCategory = true;
         state.error = null;
       })
       .addCase(fetchCategoryByIdHome1.fulfilled, (state, action) => {
         state.category = action.payload;
-        state.loading = false;
+        state.loadingCategory = false;
       })
       .addCase(fetchCategoryByIdHome1.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingCategory = false;
         state.error = action.payload || "Failed to load category";
       })
 
+      // ===== SUBCATEGORIES =====
       .addCase(fetchSubCategoriesHome1.pending, (state) => {
-        state.loading = true;
+        state.loadingSubCategories = true;
         state.error = null;
       })
       .addCase(fetchSubCategoriesHome1.fulfilled, (state, action) => {
         state.subCategories = action.payload;
-        state.loading = false;
+        state.loadingSubCategories = false;
       })
       .addCase(fetchSubCategoriesHome1.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingSubCategories = false;
         state.error = action.payload || "Failed to load subcategories";
       })
 
+      // ===== PRODUCTS =====
       .addCase(fetchProductsByCategoryHome1.pending, (state) => {
-        state.loading = true;
+        state.loadingProducts = true;
         state.error = null;
       })
       .addCase(fetchProductsByCategoryHome1.fulfilled, (state, action) => {
         state.products = action.payload;
-        state.loading = false;
+        state.loadingProducts = false;
       })
       .addCase(fetchProductsByCategoryHome1.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingProducts = false;
         state.error = action.payload || "Failed to load products";
       });
   },
