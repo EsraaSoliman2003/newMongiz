@@ -34,7 +34,15 @@ const initialState: AuthState = {
 export const registerUser = createAsyncThunk<
   AuthResponse,
   FormData,
-  { rejectValue: { title: string; errors?: Record<string, string[]> } }
+  {
+    rejectValue: {
+      title: string;
+      errors?: Record<string, string[]>;
+      extra?: {
+        isDeleted?: boolean;
+      };
+    };
+  }
 >("auth/register", async (formData, thunkAPI) => {
   try {
     const res = await axios.post("Account/register", formData, {
@@ -46,6 +54,7 @@ export const registerUser = createAsyncThunk<
       return thunkAPI.rejectWithValue({
         title: err.response?.data?.title || "Register failed",
         errors: err.response?.data?.errors,
+        extra: err.response?.data?.extra,
       });
     }
     return thunkAPI.rejectWithValue({
@@ -106,10 +115,7 @@ export const googleSignIn = createAsyncThunk<
   { rejectValue: { title: string } }
 >("auth/googleSignIn", async (token, thunkAPI) => {
   try {
-    const res = await axios.post(
-      "Account/googleSignIn",
-      { token },
-    );
+    const res = await axios.post("Account/googleSignIn", { token });
     return res.data;
   } catch (err: unknown) {
     if (isAxiosError(err)) {
@@ -130,10 +136,7 @@ export const googleSignUp = createAsyncThunk<
   { rejectValue: { title: string } }
 >("auth/googleSignUp", async (data, thunkAPI) => {
   try {
-    const res = await axios.post(
-      "Account/googleSignUp",
-      data,
-    );
+    const res = await axios.post("Account/googleSignUp", data);
     return res.data;
   } catch (err: unknown) {
     if (isAxiosError(err)) {
@@ -145,6 +148,25 @@ export const googleSignUp = createAsyncThunk<
   }
 });
 
+/* ===========================
+   Recovery Account
+=========================== */
+export const recoverAccount = createAsyncThunk(
+  "auth/recover",
+  async (email: string, thunkAPI) => {
+    try {
+      const res = await axios.get("Account/re-active-account", {
+        params: { email },
+      });
+
+      return res.data;
+    } catch (err: any) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data || { message: "Recovery failed" },
+      );
+    }
+  },
+);
 /* ===========================
    Slice
 =========================== */

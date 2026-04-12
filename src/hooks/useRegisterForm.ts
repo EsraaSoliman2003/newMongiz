@@ -17,23 +17,28 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { setCookie } from "cookies-next";
 import { setPhoneData } from "@/rtk/slices/ui/phoneSlice";
+import { useState } from "react";
 
 interface UseRegisterFormReturn extends Pick<
   UseFormReturn<RegisterSchemaType>,
-  "register" | "handleSubmit" | "control" | "formState" | "setValue" | "trigger"   // ← added trigger
+  "register" | "handleSubmit" | "control" | "formState" | "setValue" | "trigger" // ← added trigger
 > {
   onSubmit: SubmitHandler<RegisterSchemaType>;
   loading: boolean;
   t: (key: string) => string;
+  openRecoveryModal: boolean;
+  setOpenRecoveryModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useRegisterForm = (
   isSeller: boolean = false,
+  setEmailForRecovery?: (email: string) => void,
 ): UseRegisterFormReturn => {
   const t = useTranslations();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { setToken } = useAuth();
+  const [openRecoveryModal, setOpenRecoveryModal] = useState(false);
 
   const authLoading = useAppSelector((state) => state.auth.loading);
   const sellerLoading = useAppSelector((state) => state.seller.loading);
@@ -85,15 +90,28 @@ export const useRegisterForm = (
     }
 
     try {
-      let resultAction;
+      const resultAction = isSeller
+        ? await dispatch(registerSeller(formData))
+        : await dispatch(registerUser(formData));
+      console.log(resultAction?.payload);
 
-      if (isSeller) {
-        resultAction = await dispatch(registerSeller(formData));
-      } else {
-        resultAction = await dispatch(registerUser(formData));
+      // 👇 THIS is the correct safe extraction
+      const data: any =
+        (resultAction as any)?.payload || (resultAction as any)?.error?.payload;
+
+      // 👇 NOW check deleted correctly
+      const isDeleted = data?.extra?.isDeleted;
+
+      if (isDeleted) {
+        setEmailForRecovery?.(data?.email ?? (formData.get("Email") as string));
+
+        setOpenRecoveryModal(true);
+        return;
       }
 
+      // reject handling
       if (resultAction.type.endsWith("rejected")) {
+        toast.error(data?.title || t("UnexpectedError"));
         return;
       }
 
@@ -146,5 +164,7 @@ export const useRegisterForm = (
     onSubmit,
     loading,
     t,
+    openRecoveryModal,
+    setOpenRecoveryModal,
   };
 };

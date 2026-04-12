@@ -14,13 +14,14 @@ import "react-phone-number-input/style.css";
 import { Controller } from "react-hook-form";
 import { RegisterSchemaType } from "@/validation/registerSchema";
 import { useAppSelector } from "@/rtk/hooks";
+import RecoveryAccountModal from "@/components/recoveryAccountModal/RecoveryAccountModal";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const { logo, loading: logoLoading } = useAppSelector((s) => s.logo)
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [emailForRecovery, setEmailForRecovery] = useState("");
   const isSeller = searchParams.get("seller") === "true";
 
   const {
@@ -33,7 +34,9 @@ export default function Page() {
     onSubmit,
     loading,
     t,
-  } = useRegisterForm(isSeller);
+    openRecoveryModal,
+    setOpenRecoveryModal,
+  } = useRegisterForm(isSeller, setEmailForRecovery);
 
   // Step management: 1 = basic info, 2 = seller details (only for sellers)
   const [step, setStep] = useState(1);
@@ -485,6 +488,12 @@ export default function Page() {
           <Image src={Google} alt="Google" width={28} height={28} /> {t("LoginWithGoogle")}
         </Link>
       </div>
+
+      <RecoveryAccountModal
+        open={openRecoveryModal}
+        onClose={() => setOpenRecoveryModal(false)}
+        email={emailForRecovery}
+      />
     </div>
   );
 }
