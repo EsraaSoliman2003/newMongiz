@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx";
 import { useTranslations } from "next-intl";
 import AdminGridLayout from "@/components/adminGridLayout/AdminGridLayout";
 import AdminProductCard from "./_components/AdminProductCard";
