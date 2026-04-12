@@ -56,7 +56,6 @@ export default function Page() {
           يمكنك تدوير النموذج والتكبير والتصغير بسهولة
         </p>
 
-        {/* Viewer Container */}
         <div
           style={{
             width: "100%",
@@ -84,13 +83,12 @@ export default function Page() {
           )}
 
           <model-viewer
-            src="/test.glb"
+            src="/test1.glb"
             auto-rotate
             camera-controls
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+            loading="lazy"
+            poster="/poster.jpg"
+            style={{ width: "100%", height: "100%" }}
           />
         </div>
       </div>

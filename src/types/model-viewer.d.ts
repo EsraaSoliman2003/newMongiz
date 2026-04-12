@@ -15,6 +15,9 @@ declare module "react" {
         ar?: boolean;
         "shadow-intensity"?: string | number;
         "environment-image"?: string;
+        loading?: "eager" | "lazy";
+        poster?: string;
+        style?: React.CSSProperties;
       };
     }
   }
