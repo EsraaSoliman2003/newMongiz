@@ -14,6 +14,7 @@ import {
 
 interface CategoriesState {
   loading: boolean;
+  updateLoading?: boolean;
   data: Category[];
   fullData: FullCategory[];
   selectedCategory: FullCategory | null; // full
@@ -23,6 +24,7 @@ interface CategoriesState {
 
 const initialState: CategoriesState = {
   loading: false,
+  updateLoading: false,
   data: [],
   fullData: [],
   selectedCategory: null,
@@ -254,8 +256,15 @@ const categoriesSlice = createSlice({
       })
 
       // PUT
+      .addCase(updateCategory.pending, (state) => {
+        state.updateLoading = true;
+      })
       .addCase(updateCategory.fulfilled, (state) => {
-        state.loading = false;
+        state.updateLoading = false;
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
+        state.updateLoading = false;
+        state.error = action.payload || "Error";
       })
 
       // DELETE
