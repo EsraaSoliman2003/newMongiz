@@ -23,7 +23,7 @@ const EditCategoryForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const { loading, selectedSimpleCategory } = useAppSelector((state) => state.categories);
+  const { loading, updateLoading, selectedSimpleCategory } = useAppSelector((state) => state.categories);
 
   const [name, setName] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -134,7 +134,7 @@ const EditCategoryForm = () => {
           <div className="flex justify-end pt-4 border-t border-gray-100">
             <FormSubmitButton
               text={t("Update Category")}
-              loading={loading}
+              loading={updateLoading}
               className="min-w-[160px]"
             />
           </div>
