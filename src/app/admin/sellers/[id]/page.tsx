@@ -112,7 +112,7 @@ export default function SellerDetailsPage() {
                             <img
                                 src={profile.commercialRegisterImage}
                                 onClick={() =>
-                                    setPreviewImage(profile.commercialRegisterImage)
+                                    setPreviewImage(profile.commercialRegisterImage ?? null)
                                 }
                                 className="w-full h-52 object-cover rounded-xl border cursor-pointer hover:opacity-90 transition"
                             />
@@ -133,7 +133,7 @@ export default function SellerDetailsPage() {
                             <img
                                 src={profile.taxCardImage}
                                 onClick={() =>
-                                    setPreviewImage(profile.taxCardImage)
+                                    setPreviewImage(profile.taxCardImage ?? null)
                                 }
                                 className="w-full h-52 object-cover rounded-xl border cursor-pointer hover:opacity-90 transition"
                             />
