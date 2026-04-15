@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/rtk/hooks";
 import { setTrue } from "@/rtk/slices/openMenu";
 import { Menu } from "lucide-react";
 import Link from "next/link";
-import SafeImage from "@/components/safeImage/SafeImage";
+import Image from "next/image";
 
 export default function SidebarToggle() {
   const dispatch = useAppDispatch();
@@ -23,19 +23,18 @@ export default function SidebarToggle() {
     >
       {/* Title */}
       <Link href={"/"}>
-        {
-          loading ? (
-            <div className="w-52 h-20 bg-gray-700 animate-pulse rounded"></div>
-          ) : (
-            <SafeImage
+        {loading ? (
+          <div className="w-40 h-10 bg-gray-200 animate-pulse rounded"></div>
+        ) : (
+          <div className="relative w-20 h-8">
+            <Image
               src={logo?.logoDarkMode || "/default-logo.png"}
-              alt="Mongiz"
-              width={100}
-              height={40}
-              className="object-contain h-8 w-auto"
+              alt="logo"
+              fill
+              className="object-contain"
             />
-          )
-        }
+          </div>
+        )}
       </Link>
 
       {/* Button */}

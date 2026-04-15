@@ -14,6 +14,7 @@ import SidebarUser from "./_components/SidebarUser";
 import { cn } from "@/utils/cn";
 import { useAppSelector, useAppDispatch } from "@/rtk/hooks";
 import { setFalse } from "@/rtk/slices/openMenu";
+import SidebarBottomSwiper from "./_components/SidebarBottomSwiper";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ export default function Sidebar() {
     setCookie("NEXT_LOCALE", nextLang, { path: "/" });
     window.location.reload();
   };
-  
+
   return (
     <>
       <SidebarToggle />
@@ -47,6 +48,10 @@ export default function Sidebar() {
         />
         <SidebarUser onChangeLanguage={changeLanguage} />
       </aside>
+
+      <SidebarBottomSwiper
+        onNavigate={() => dispatch(setFalse())}
+      />
     </>
   );
 }

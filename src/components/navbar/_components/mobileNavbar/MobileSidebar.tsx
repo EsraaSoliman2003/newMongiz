@@ -18,21 +18,11 @@ interface MobileSidebarProps {
   locale: string;
 }
 
-const currencies = [
-  { code: "USD", label: "USD" },
-  { code: "EGP", label: "EGP" },
-  { code: "SAR", label: "SAR" },
-  { code: "AED", label: "AED" },
-  { code: "JOD", label: "JOD" },
-  { code: "CNY", label: "CNY" },
-];
 
 const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const t = useTranslations();
   const dispatch = useAppDispatch();
-  const { currency: selectedCurrency } = useAppSelector((s) => s.currencyValue);
 
   const [activeCategory, setActiveCategory] = useState<categoriesMenu | null>(null);
   const [showCurrencySelector, setShowCurrencySelector] = useState(false);
@@ -55,18 +45,6 @@ const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
   }, [dispatch]);
 
   const { data, loading } = useAppSelector((s) => s.categoriesMenu);
-
-  const changeCurrency = (currencyCode: string) => {
-    setCookie("currency", currencyCode);
-    dispatch(setCurrency(currencyCode));
-    setShowCurrencySelector(false); // go back to main menu after selection
-  };
-
-  const openCurrencySelector = () => {
-    setShowCurrencySelector(true);
-    // scroll to top
-    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const openCategory = (cat: categoriesMenu) => {
     setActiveCategory(cat)
@@ -152,54 +130,9 @@ const MobileSidebar = ({ isOpen, onClose, locale }: MobileSidebarProps) => {
               </div>
             )}
 
-            {/* Currency List View (like subcategories) */}
-            {showCurrencySelector && (
-              <div className="p-4">
-                <button
-                  onClick={() => setShowCurrencySelector(false)}
-                  className="flex items-center gap-2 text-sm mb-4 text-gray-600 hover:bg-gray-50 py-1 pb-2 px-3 rounded-md"
-                >
-                  <ChevronLeft size={16} />
-                  {t("Back")}
-                </button>
-                <div className="space-y-1">
-                  {currencies.map((c) => (
-                    <button
-                      key={c.code}
-                      onClick={() => changeCurrency(c.code)}
-                      className={`w-full p-3 text-sm text-dark border border-gray-100 rounded-md hover:bg-gray-50 transition text-start
-                        ${selectedCurrency === c.code ? "bg-main/10 text-main font-medium" : ""}`}
-                    >
-                      {t(`${c.label}text`)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Always visible sections */}
             <SocialLinks />
 
-            {!activeCategory && !showCurrencySelector && (
-              < div className="px-4 pb-2">
-                <button
-                  onClick={openCurrencySelector}
-                  className="w-full py-3 px-4 rounded-md
-                  bg-gray-100 text-gray-800
-                  hover:bg-gray-200 active:scale-95
-                  transition-all duration-200
-                  flex items-center justify-between
-                  text-sm font-semibold"
-                >
-                  <span className="flex items-center gap-2">
-                    <Coins size={16} className="text-main" />
-                    {t("Currency")} ({t(selectedCurrency || "USD")})
-                  </span>
-                  <ChevronLeft size={14} className="text-gray-500" />
-                </button>
-              </div>
-            )}
-            
             <div className="mt-6 px-4 flex flex-col gap-3 mb-15">
               {[
                 { code: "ar", label: "العربية" },
