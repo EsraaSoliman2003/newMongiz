@@ -3,7 +3,8 @@ import { getCookie, deleteCookie } from "cookies-next";
 import { toast } from "sonner";
 import { navigate } from "@/utils/navigate";
 
-const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+// const base = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
+const base = "https://mongiz-multi-vendor.api.imothmr.com";
 
 const instance = axios.create({
   baseURL: `${base}/api/`,
