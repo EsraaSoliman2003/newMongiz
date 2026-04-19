@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["D3KK9NAK4P.com.imothmr.monjizapp"],
+        "components": [
+          {
+            "/": "*"
+          }
+        ]
+      }
+    ]
+  }
+}
